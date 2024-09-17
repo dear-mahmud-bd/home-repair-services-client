@@ -4,18 +4,21 @@ import Home from "../Pages/Home";
 import AllServices from "../Pages/AllServices";
 import axios from "axios";
 import ServicesDetails from "../Pages/ServicesDetails";
+import ErrorElement from "../Layouts/Shared/ErrorElement";
+import NotFound from "../Layouts/Shared/NotFound";
 
 
 const router = createBrowserRouter([
     {
         path: "/",
         element: <App></App>,
-        errorElement: <h1>Error!! Back to home page...</h1>,
+        errorElement: <ErrorElement/>,
         children: [
             { path: '/', element: <Home /> },
             { path: '/services', element: <AllServices /> },
             { path: '/login', element: <h1> This is login page </h1> },
             { path: '/registration', element: <h1> This is registration page </h1> },
+            { path: '*', element: <NotFound/> },
 
             // This are private route...
             {
