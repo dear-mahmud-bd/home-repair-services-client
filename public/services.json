@@ -1,0 +1,200 @@
+[
+    {
+        "serviceId": "1001",
+        "serviceProviderName": "CleanPro Services",
+        "serviceProviderImage": "https://i.ibb.co.com/zZ0brtf/user.png",
+        "serviceLocation": "Downtown",
+        "serviceImage": "https://i.ibb.co.com/NZtL370/banner1.jpg",
+        "serviceName": "Basic Home Cleaning",
+        "serviceDescription": "A thorough cleaning service covering all accessible surfaces, floors, and common areas.",
+        "servicePrice": 50,
+        "serviceTotalOrder": 150
+    },
+    {
+        "serviceId": "1002",
+        "serviceProviderName": "CleanPro Services",
+        "serviceProviderImage": "https://i.ibb.co.com/zZ0brtf/user.png",
+        "serviceLocation": "Uptown",
+        "serviceImage": "https://i.ibb.co.com/NZtL370/banner1.jpg",
+        "serviceName": "Deep Cleaning",
+        "serviceDescription": "Intensive cleaning that includes hard to reach areas, detailed scrubbing, and sanitation.",
+        "servicePrice": 80,
+        "serviceTotalOrder": 75
+    },
+    {
+        "serviceId": "1003",
+        "serviceProviderName": "CleanPro Services",
+        "serviceProviderImage": "https://i.ibb.co.com/zZ0brtf/user.png",
+        "serviceLocation": "Suburban",
+        "serviceImage": "https://i.ibb.co.com/NZtL370/banner1.jpg",
+        "serviceName": "Eco-Friendly Cleaning",
+        "serviceDescription": "Use of environmentally friendly cleaning supplies and methods for a green clean.",
+        "servicePrice": 60,
+        "serviceTotalOrder": 90
+    },
+    {
+        "serviceId": "1004",
+        "serviceProviderName": "ElectroFix",
+        "serviceProviderImage": "https://i.ibb.co.com/zZ0brtf/user.png",
+        "serviceLocation": "City Center",
+        "serviceImage": "https://i.ibb.co.com/NZtL370/banner1.jpg",
+        "serviceName": "Standard Electrical Installation",
+        "serviceDescription": "Installation of basic home electrical systems and safety checks.",
+        "servicePrice": 70,
+        "serviceTotalOrder": 120
+    },
+    {
+        "serviceId": "1005",
+        "serviceProviderName": "ElectroFix",
+        "serviceProviderImage": "https://i.ibb.co.com/zZ0brtf/user.png",
+        "serviceLocation": "North Side",
+        "serviceImage": "https://i.ibb.co.com/NZtL370/banner1.jpg",
+        "serviceName": "Advanced Electrical Repair",
+        "serviceDescription": "Comprehensive electrical repairs and troubleshooting for complex systems.",
+        "servicePrice": 90,
+        "serviceTotalOrder": 110
+    },
+    {
+        "serviceId": "1006",
+        "serviceProviderName": "ElectroFix",
+        "serviceProviderImage": "https://i.ibb.co.com/zZ0brtf/user.png",
+        "serviceLocation": "East End",
+        "serviceImage": "https://i.ibb.co.com/NZtL370/banner1.jpg",
+        "serviceName": "Emergency Electrical Services",
+        "serviceDescription": "24/7 emergency services to tackle urgent electrical issues.",
+        "servicePrice": 120,
+        "serviceTotalOrder": 60
+    },
+    {
+        "serviceId": "1007",
+        "serviceProviderName": "ColorWorx",
+        "serviceProviderImage": "https://i.ibb.co.com/zZ0brtf/user.png",
+        "serviceLocation": "Industrial District",
+        "serviceImage": "https://i.ibb.co.com/NZtL370/banner1.jpg",
+        "serviceName": "Interior Painting",
+        "serviceDescription": "Professional interior painting using high-quality, durable paints.",
+        "servicePrice": 150,
+        "serviceTotalOrder": 100
+    },
+    {
+        "serviceId": "1008",
+        "serviceProviderName": "ColorWorx",
+        "serviceProviderImage": "https://i.ibb.co.com/zZ0brtf/user.png",
+        "serviceLocation": "Old Town",
+        "serviceImage": "https://i.ibb.co.com/NZtL370/banner1.jpg",
+        "serviceName": "Exterior Painting",
+        "serviceDescription": "Exterior painting services that include weatherproofing and detailed finishing.",
+        "servicePrice": 200,
+        "serviceTotalOrder": 85
+    },
+    {
+        "serviceId": "1009",
+        "serviceProviderName": "ColorWorx",
+        "serviceProviderImage": "https://i.ibb.co.com/zZ0brtf/user.png",
+        "serviceLocation": "Riverside",
+        "serviceImage": "https://i.ibb.co.com/NZtL370/banner1.jpg",
+        "serviceName": "Decorative Painting",
+        "serviceDescription": "Custom decorative painting designs for unique home aesthetics.",
+        "servicePrice": 250,
+        "serviceTotalOrder": 70
+    },
+    {
+        "serviceId": "1010",
+        "serviceProviderName": "PipeMasters",
+        "serviceProviderImage": "https://i.ibb.co.com/zZ0brtf/user.png",
+        "serviceLocation": "Southside",
+        "serviceImage": "https://i.ibb.co.com/NZtL370/banner1.jpg",
+        "serviceName": "Residential Plumbing",
+        "serviceDescription": "Full plumbing services for homes, including installation and repairs.",
+        "servicePrice": 100,
+        "serviceTotalOrder": 130
+    },
+    {
+        "serviceId": "1011",
+        "serviceProviderName": "PipeMasters",
+        "serviceProviderImage": "https://i.ibb.co.com/zZ0brtf/user.png",
+        "serviceLocation": "Westside",
+        "serviceImage": "https://i.ibb.co.com/NZtL370/banner1.jpg",
+        "serviceName": "Commercial Plumbing",
+        "serviceDescription": "Specialized plumbing solutions for commercial buildings and businesses.",
+        "servicePrice": 200,
+        "serviceTotalOrder": 50
+    },
+    {
+        "serviceId": "1012",
+        "serviceProviderName": "PipeMasters",
+        "serviceProviderImage": "https://i.ibb.co.com/zZ0brtf/user.png",
+        "serviceLocation": "City Outskirts",
+        "serviceImage": "https://i.ibb.co.com/NZtL370/banner1.jpg",
+        "serviceName": "Emergency Plumbing",
+        "serviceDescription": "Emergency plumbing services available around the clock for urgent needs.",
+        "servicePrice": 150,
+        "serviceTotalOrder": 40
+    },
+    {
+        "serviceId": "1013",
+        "serviceProviderName": "BuildRight",
+        "serviceProviderImage": "https://i.ibb.co.com/zZ0brtf/user.png",
+        "serviceLocation": "Central District",
+        "serviceImage": "https://i.ibb.co.com/NZtL370/banner1.jpg",
+        "serviceName": "Home Renovation",
+        "serviceDescription": "Comprehensive home renovation to modernize and enhance your living space.",
+        "servicePrice": 5000,
+        "serviceTotalOrder": 20
+    },
+    {
+        "serviceId": "1014",
+        "serviceProviderName": "BuildRight",
+        "serviceProviderImage": "https://i.ibb.co.com/zZ0brtf/user.png",
+        "serviceLocation": "Suburban Area",
+        "serviceImage": "https://i.ibb.co.com/NZtL370/banner1.jpg",
+        "serviceName": "Kitchen Remodeling",
+        "serviceDescription": "Transform your kitchen with our custom design and build remodeling services.",
+        "servicePrice": 4500,
+        "serviceTotalOrder": 30
+    },
+    {
+        "serviceId": "1015",
+        "serviceProviderName": "BuildRight",
+        "serviceProviderImage": "https://i.ibb.co.com/zZ0brtf/user.png",
+        "serviceLocation": "Highland Park",
+        "serviceImage": "https://i.ibb.co.com/NZtL370/banner1.jpg",
+        "serviceName": "Bathroom Renovation",
+        "serviceDescription": "Upgrade your bathroom with modern fixtures, efficient layouts, and high-quality materials.",
+        "servicePrice": 4000,
+        "serviceTotalOrder": 25
+    },
+    {
+        "serviceId": "1016",
+        "serviceProviderName": "TopCover Roofing",
+        "serviceProviderImage": "https://i.ibb.co.com/zZ0brtf/user.png",
+        "serviceLocation": "North Valley",
+        "serviceImage": "https://i.ibb.co.com/NZtL370/banner1.jpg",
+        "serviceName": "Roof Replacement",
+        "serviceDescription": "Complete roof replacement services using durable materials for longer roof life.",
+        "servicePrice": 3000,
+        "serviceTotalOrder": 45
+    },
+    {
+        "serviceId": "1017",
+        "serviceProviderName": "TopCover Roofing",
+        "serviceProviderImage": "https://i.ibb.co.com/zZ0brtf/user.png",
+        "serviceLocation": "Eastside",
+        "serviceImage": "https://i.ibb.co.com/NZtL370/banner1.jpg",
+        "serviceName": "Leak Repairs",
+        "serviceDescription": "Quick and effective repairs for roof leaks, preventing damage and protecting your home.",
+        "servicePrice": 200,
+        "serviceTotalOrder": 150
+    },
+    {
+        "serviceId": "1018",
+        "serviceProviderName": "TopCover Roofing",
+        "serviceProviderImage": "https://i.ibb.co.com/zZ0brtf/user.png",
+        "serviceLocation": "Mountain View",
+        "serviceImage": "https://i.ibb.co.com/NZtL370/banner1.jpg",
+        "serviceName": "Roof Maintenance",
+        "serviceDescription": "Regular maintenance to ensure your roof's longevity and performance.",
+        "servicePrice": 150,
+        "serviceTotalOrder": 100
+    }
+]

@@ -1,6 +1,7 @@
 import { createBrowserRouter } from "react-router-dom";
 import App from "../App";
 import Home from "../Pages/Home";
+import AllServices from "../Pages/AllServices";
 
 
 const router = createBrowserRouter([
@@ -10,7 +11,7 @@ const router = createBrowserRouter([
         errorElement: <h1>Error!! Back to home page...</h1>,
         children: [
             { path: '/', element: <Home /> },
-            { path: '/services', element: <h1> This is Services page </h1> },
+            { path: '/services', element: <AllServices/> },
             { path: '/login', element: <h1> This is login page </h1> },
             { path: '/registration', element: <h1> This is registration page </h1> },
 
