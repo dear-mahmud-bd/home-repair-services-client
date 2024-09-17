@@ -1,17 +1,25 @@
 import { Helmet } from "react-helmet";
 import { RiMoneyDollarCircleLine } from "react-icons/ri";
 import { useLoaderData, useParams } from "react-router-dom";
-
+import { useState } from "react";
 
 const ServicesDetails = () => {
     const services = useLoaderData();
     const { _id } = useParams();
-    // console.log("url: ", _id, services);
 
     const service = services.find(service => service.serviceId === _id);
-    // console.log(service);
+
+    // Mock current user data
+    const currentUser = {
+        email: "currentuser@example.com",
+        name: "John Doe"
+    };
+
+    // State for modal visibility and editable fields
+    const [serviceDate, setServiceDate] = useState("");
+    const [specialInstructions, setSpecialInstructions] = useState("");
+
     const {
-        // serviceId,
         serviceImage,
         serviceName,
         serviceDescription,
@@ -19,7 +27,7 @@ const ServicesDetails = () => {
         serviceProviderName,
         serviceProviderImage,
         serviceLocation,
-    } = service;
+    } = service || {};
 
     if (!service) {
         return (
@@ -32,6 +40,22 @@ const ServicesDetails = () => {
             </div>
         );
     }
+
+    const handlePurchase = (e) => {
+        e.preventDefault();
+        console.log({
+            serviceId: _id,
+            serviceName,
+            servicePrice,
+            serviceDate,
+            specialInstructions,
+            providerEmail: "provider@example.com", 
+            providerName: serviceProviderName,
+            currentUserEmail: currentUser.email,
+            currentUserName: currentUser.name
+        });
+    };
+
     return (
         <div>
             <Helmet>
@@ -54,7 +78,9 @@ const ServicesDetails = () => {
                             <p className="mt-4">{serviceDescription}</p>
                             <div className="mt-4 flex justify-between items-center">
                                 <span className="text-lg font-semibold flex items-center">Charge :<RiMoneyDollarCircleLine />{servicePrice}</span>
-                                <button className="ml-4 bg-custom-blue-5 hover:bg-custom-blue-3 text-white font-bold py-2 px-4 rounded">
+                                <button
+                                    onClick={() => document.getElementById('service_book_modal').showModal()}
+                                    className="ml-4 bg-custom-blue-5 hover:bg-custom-blue-3 text-white font-bold py-2 px-4 rounded">
                                     Book Now
                                 </button>
                             </div>
@@ -62,6 +88,75 @@ const ServicesDetails = () => {
                     </div>
                 </div>
             </div>
+
+            {/* Open the modal using document.getElementById('ID').showModal() method */}
+            <dialog id="service_book_modal" className="modal">
+                <div className="modal-box w-full max-w-5xl">
+                    <div className=" flex justify-between items-center">
+                        <h3 className="font-bold text-lg mb-4">Book Service</h3>
+                        <form method="dialog">
+                            <button className="btn btn-sm btn-circle btn-outline text-red-500 hover:bg-red-500 hover:border-red-500">X</button>
+                        </form>
+                    </div>
+                    <form onSubmit={handlePurchase}>
+                        <div className="grid grid-cols-3 sm:grid-cols-6 gap-4 mb-4">
+                            <div className="col-span-6 sm:col-span-3">
+                                <label className="block text-sm font-semibold">Service ID</label>
+                                <input type="text" value={_id} readOnly className="input input-sm input-bordered w-full" />
+                            </div>
+                            <div className="col-span-6 sm:col-span-3">
+                                <label className="block text-sm font-semibold">Service Name</label>
+                                <input type="text" value={serviceName} readOnly className="input input-sm input-bordered w-full" />
+                            </div>
+                            <div className="col-span-6 sm:col-span-3">
+                                <label className="block text-sm font-semibold">Service Image</label>
+                                <input type="text" value={serviceImage} readOnly className="input input-sm input-bordered w-full" />
+                            </div>
+                            <div className="col-span-6 sm:col-span-3">
+                                <label className="block text-sm font-semibold">Provider Email</label>
+                                <input type="text" value="provider@example.com" readOnly className="input input-sm input-bordered w-full" />
+                            </div>
+                            <div className="col-span-6 sm:col-span-3">
+                                <label className="block text-sm font-semibold">Provider Name</label>
+                                <input type="text" value={serviceProviderName} readOnly className="input input-sm input-bordered w-full" />
+                            </div>
+                            <div className="col-span-6 sm:col-span-3">
+                                <label className="block text-sm font-semibold">Current User Email</label>
+                                <input type="text" value={currentUser.email} readOnly className="input input-sm input-bordered w-full" />
+                            </div>
+                            <div className="col-span-6 sm:col-span-2">
+                                <label className="block text-sm font-semibold">Current User Name</label>
+                                <input type="text" value={currentUser.name} readOnly className="input input-sm input-bordered w-full" />
+                            </div>
+                            <div className="col-span-6 sm:col-span-2">
+                                <label className="block text-sm font-semibold">Price</label>
+                                <input type="text" value={servicePrice} readOnly className="input input-sm input-bordered w-full" />
+                            </div>
+                            <div className="col-span-6 sm:col-span-2">
+                                <label className="block text-sm font-semibold">Service Taking Date</label>
+                                <input
+                                    type="date"
+                                    value={serviceDate}
+                                    onChange={(e) => setServiceDate(e.target.value)}
+                                    className="input input-sm input-bordered w-full"
+                                />
+                            </div>
+                            <div className="col-span-6">
+                                <label className="block text-sm font-semibold">Special Instructions</label>
+                                <textarea value={specialInstructions} rows={2} style={{ minHeight: '3rem', maxHeight: '7rem' }}
+                                    onChange={(e) => setSpecialInstructions(e.target.value)}
+                                    className="textarea textarea-bordered w-full" />
+                            </div>
+                        </div>
+                        <div className="modal-action">
+                            <form method="dialog">
+                                <button className="btn btn-warning text-white">Not Now</button>
+                            </form>
+                            <button type="submit" className="btn bg-custom-blue-5 hover:bg-custom-blue-3 text-white">Purchase</button>
+                        </div>
+                    </form>
+                </div>
+            </dialog>
         </div>
     );
 };
