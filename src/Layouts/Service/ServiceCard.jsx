@@ -1,10 +1,12 @@
 import PropTypes from 'prop-types';
 import { IoLocationOutline } from 'react-icons/io5';
 import { RiMoneyDollarCircleLine } from 'react-icons/ri';
+import { useNavigate } from 'react-router-dom';
 
 const ServiceCard = ({ service }) => {
     // console.log(service);
     const {
+        serviceId : _id,
         serviceImage,
         serviceName,
         serviceDescription,
@@ -13,6 +15,12 @@ const ServiceCard = ({ service }) => {
         serviceProviderImage,
         serviceLocation,
     } = service;
+
+    const navigate = useNavigate();
+    const handleViewDetails = (_id) => {
+        // console.log(_id);
+        navigate(`/services/${_id}`)
+    };
 
     return (
         <div className="border-[1px] max-w-md mx-auto rounded-xl overflow-hidden lg:max-w-full">
@@ -35,7 +43,7 @@ const ServiceCard = ({ service }) => {
                             <span className="ml-2">Provider: {serviceProviderName}</span>
                         </div>
                     </div>
-                    <button className="mt-4 bg-custom-blue-5 hover:bg-custom-blue-3 text-white font-bold py-2 px-4 rounded">
+                    <button onClick={()=>handleViewDetails(_id)} className="mt-4 bg-custom-blue-5 hover:bg-custom-blue-3 text-white font-bold py-2 px-4 rounded">
                         View Details
                     </button>
                 </div>
