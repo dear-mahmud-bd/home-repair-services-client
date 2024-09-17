@@ -6,19 +6,21 @@ import axios from "axios";
 import ServicesDetails from "../Pages/ServicesDetails";
 import ErrorElement from "../Layouts/Shared/ErrorElement";
 import NotFound from "../Layouts/Shared/NotFound";
+import LogIn from "../Pages/LogIn";
+import Register from "../Pages/Register";
 
 
 const router = createBrowserRouter([
     {
         path: "/",
         element: <App></App>,
-        errorElement: <ErrorElement/>,
+        errorElement: <ErrorElement />,
         children: [
             { path: '/', element: <Home /> },
             { path: '/services', element: <AllServices /> },
-            { path: '/login', element: <h1> This is login page </h1> },
-            { path: '/registration', element: <h1> This is registration page </h1> },
-            { path: '*', element: <NotFound/> },
+            { path: '/login', element: <LogIn /> },
+            { path: '/register', element: <Register /> },
+            { path: '*', element: <NotFound /> },
 
             // This are private route...
             {
