@@ -22,6 +22,7 @@ const ServicesDetails = () => {
     const {
         serviceImage,
         serviceName,
+        serviceProviderEmail,
         serviceDescription,
         servicePrice,
         serviceProviderName,
@@ -70,9 +71,10 @@ const ServicesDetails = () => {
                     </div>
                     <div className="flex items-center">
                         <div >
-                            <div className=" text-center space-y-2">
+                            <div className=" text-center space-y-1">
                                 <img src={serviceProviderImage} alt="Provider" className="w-24 h-24 shadow-xl rounded-full mx-auto" />
                                 <h2 className="text-xl font-semibold">Service Provider: {serviceProviderName}</h2>
+                                <p className="text-md text-gray-400">Email: {serviceProviderEmail}</p>
                                 <p className="text-md text-gray-500">Area Covered: {serviceLocation}</p>
                             </div>
                             <p className="mt-4">{serviceDescription}</p>

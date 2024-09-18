@@ -48,7 +48,7 @@ const Navbar = () => {
         <li>
             <Link to='/services'>Services</Link>
         </li>
-        <li>
+        {user && <li>
             <details>
                 <summary>Dashboard</summary>
                 <ul className="p-2">
@@ -58,7 +58,7 @@ const Navbar = () => {
                     <li><Link to='/services-todo'>Service_To-Do</Link></li>
                 </ul>
             </details>
-        </li>
+        </li>}
     </>;
     return (
         <header className='container max-w-7xl mx-auto'>
@@ -80,7 +80,7 @@ const Navbar = () => {
                     <ul className="menu menu-horizontal px-1"> {navList} </ul>
                 </div>
                 <div className="navbar-end">
-                    <label className="swap swap-rotate mx-1">
+                    <label className="swap swap-rotate mr-2">
                         <input onChange={toggleTheme} type="checkbox" className="theme-controller" checked={theme === 'dark'} />
                         {/* Sun icon */}
                         <svg className="swap-off h-10 w-10 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
@@ -100,11 +100,13 @@ const Navbar = () => {
                             </div>
                             <ul tabIndex={0} className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt--2 w-52 p-2 shadow">
                                 <li className=' font-semibold text-gray-500 mb-1'>
-                                    <p className=''>{user?.displayName}</p>
+                                    <p className='bg-gray-50'>{user?.displayName}</p>
                                 </li>
-                                <li>
-                                    <Link to='/profile'>My Profile</Link>
-                                </li>
+                                <li><Link to='/services-add'>Add_Service</Link></li>
+                                <li><Link to='/services-manage'>Manage_Service</Link></li>
+                                <li><Link to='/services-booked'>Booked_Services</Link></li>
+                                <li><Link to='/services-todo'>Service_To-Do</Link></li>
+                                <li> <Link to='/profile'>My Profile</Link> </li>
                                 <li>
                                     <a onClick={handleSignOut}> <CiLogout />Log Out</a>
                                 </li>

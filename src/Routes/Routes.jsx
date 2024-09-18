@@ -10,6 +10,10 @@ import LogIn from "../Pages/LogIn";
 import Register from "../Pages/Register";
 import PrivateRoute from "./PrivateRoute";
 import UserProfile from "../Pages/UserProfile";
+import ServiceAdd from "../Pages/ServiceAdd";
+import ServiceManage from "../Pages/ServiceManage";
+import ServicesBooked from "../Pages/ServicesBooked";
+import ServiceToDo from "../Pages/ServiceToDo";
 
 
 const router = createBrowserRouter([
@@ -33,10 +37,10 @@ const router = createBrowserRouter([
                     return res.data;
                 },
             },
-            { path: '/services-add', element: <PrivateRoute> <h1> This is Add-Services page </h1> </PrivateRoute> },
-            { path: '/services-manage', element: <PrivateRoute> <h1> This is Manage-Services page </h1> </PrivateRoute> },
-            { path: '/services-booked', element: <PrivateRoute> <h1> This is Booked-Services page </h1> </PrivateRoute> },
-            { path: '/services-todo', element: <PrivateRoute> <h1> This is Services To-Do page </h1> </PrivateRoute> },
+            { path: '/services-add', element: <PrivateRoute> <ServiceAdd/> </PrivateRoute> },
+            { path: '/services-manage', element: <PrivateRoute> <ServiceManage/> </PrivateRoute> },
+            { path: '/services-booked', element: <PrivateRoute> <ServicesBooked/> </PrivateRoute> },
+            { path: '/services-todo', element: <PrivateRoute> <ServiceToDo/> </PrivateRoute> },
         ]
     },
 ]);
