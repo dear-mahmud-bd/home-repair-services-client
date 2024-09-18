@@ -111,8 +111,9 @@ const Navbar = () => {
                             </ul>
                         </div>
                     ) : (
-                        <Link to='/login' className="btn bg-custom-blue-5 hover:bg-custom-blue-3 text-white">LogIn <BiLogIn className='text-2xl' /></Link>
-
+                        <Link to='/login' className="btn bg-custom-blue-5 hover:bg-custom-blue-3 text-white">
+                            LogIn <BiLogIn className='text-2xl' />
+                        </Link>
                     )}
                 </div>
             </div>

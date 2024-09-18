@@ -8,6 +8,8 @@ import ErrorElement from "../Layouts/Shared/ErrorElement";
 import NotFound from "../Layouts/Shared/NotFound";
 import LogIn from "../Pages/LogIn";
 import Register from "../Pages/Register";
+import PrivateRoute from "./PrivateRoute";
+import UserProfile from "../Pages/UserProfile";
 
 
 const router = createBrowserRouter([
@@ -21,20 +23,20 @@ const router = createBrowserRouter([
             { path: '/login', element: <LogIn /> },
             { path: '/register', element: <Register /> },
             { path: '*', element: <NotFound /> },
-            
+
             // This are private route...
-            { path: '/profile', element: <h1>My Profile</h1> },
+            { path: '/profile', element: <PrivateRoute> <UserProfile/> </PrivateRoute> },
             {
-                path: '/services/:_id', element: <ServicesDetails />,
+                path: '/services/:_id', element: <PrivateRoute> <ServicesDetails /> </PrivateRoute>,
                 loader: async () => {
                     const res = await axios.get(`/public/services.json`);
                     return res.data;
                 },
             },
-            { path: '/services-add', element: <h1> This is Add-Services page </h1> },
-            { path: '/services-manage', element: <h1> This is Manage-Services page </h1> },
-            { path: '/services-booked', element: <h1> This is Booked-Services page </h1> },
-            { path: '/services-todo', element: <h1> This is Services To-Do page </h1> },
+            { path: '/services-add', element: <PrivateRoute> <h1> This is Add-Services page </h1> </PrivateRoute> },
+            { path: '/services-manage', element: <PrivateRoute> <h1> This is Manage-Services page </h1> </PrivateRoute> },
+            { path: '/services-booked', element: <PrivateRoute> <h1> This is Booked-Services page </h1> </PrivateRoute> },
+            { path: '/services-todo', element: <PrivateRoute> <h1> This is Services To-Do page </h1> </PrivateRoute> },
         ]
     },
 ]);

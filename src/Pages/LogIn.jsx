@@ -12,11 +12,11 @@ import { showToast } from "../utility/useToast";
 
 const LogIn = () => {
     const { loading, userSignIn } = useContext(AuthContext);
+
     const navigate = useNavigate();
     const location = useLocation();
 
     const [passwordVisible, togglePasswordVisibility] = useTogglePassword();
-
 
     const { register, handleSubmit, formState: { errors } } = useForm();
     const onSubmit = (formData) => {
