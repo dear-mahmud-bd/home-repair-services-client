@@ -21,8 +21,9 @@ const router = createBrowserRouter([
             { path: '/login', element: <LogIn /> },
             { path: '/register', element: <Register /> },
             { path: '*', element: <NotFound /> },
-
+            
             // This are private route...
+            { path: '/profile', element: <h1>My Profile</h1> },
             {
                 path: '/services/:_id', element: <ServicesDetails />,
                 loader: async () => {

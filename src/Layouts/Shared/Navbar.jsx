@@ -3,8 +3,38 @@ import whitelogo from '../../assets/white_logo.png';
 import darklogo from '../../assets/dark_logo.png';
 import { useEffect, useState } from 'react';
 import { BiLogIn } from 'react-icons/bi';
+import { useContext } from 'react';
+import { AuthContext } from '../../providers/AuthProvider';
+import { CiLogout } from 'react-icons/ci';
+import { showToast } from '../../utility/useToast';
+import Swal from 'sweetalert2';
 
 const Navbar = () => {
+    const { user, userSignOut } = useContext(AuthContext);
+    console.log(user);
+
+    const handleSignOut = () => {
+        Swal.fire({
+            title: 'Are you sure?',
+            text: `You want to LogOut`,
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#d33333',
+            cancelButtonColor: '#008000',
+            confirmButtonText: 'Yes!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                userSignOut()
+                    .then(() => {
+                        showToast('success', 'Log-out successful');
+                    })
+                    .catch(() => {
+                        showToast('error', 'Log-out unsuccessful');
+                    });
+            }
+        })
+    };
+
     const [theme, setTheme] = useState(localStorage.getItem('theme') || 'light');
     useEffect(() => {
         document.documentElement.setAttribute('data-theme', theme);
@@ -30,11 +60,6 @@ const Navbar = () => {
             </details>
         </li>
     </>;
-
-    <Link to="/" className="text-xl">
-        <img src={``} className='h-10' alt="Nav Logo" />
-    </Link>
-
     return (
         <header className='container max-w-7xl mx-auto'>
             <div className="navbar bg-base-100">
@@ -66,7 +91,29 @@ const Navbar = () => {
                             <path d="M21.64,13a1,1,0,0,0-1.05-.14,8.05,8.05,0,0,1-3.37.73A8.15,8.15,0,0,1,9.08,5.49a8.59,8.59,0,0,1,.25-2A1,1,0,0,0,8,2.36,10.14,10.14,0,1,0,22,14.05,1,1,0,0,0,21.64,13Zm-9.5,6.69A8.14,8.14,0,0,1,7.08,5.22v.27A10.15,10.15,0,0,0,17.22,15.63a9.79,9.79,0,0,0,2.1-.22A8.11,8.11,0,0,1,12.14,19.73Z" />
                         </svg>
                     </label>
-                    <Link to='/login' className="btn bg-custom-blue-5 hover:bg-custom-blue-3 text-white">LogIn <BiLogIn className='text-2xl' /></Link>
+                    {user ? (
+                        <div className="dropdown dropdown-hover dropdown-end">
+                            <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
+                                <div className="w-20 rounded-full ring ring-offset-2 ring-custom-blue-5">
+                                    <img src={user?.photoURL} alt="Profile Img" />
+                                </div>
+                            </div>
+                            <ul tabIndex={0} className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt--2 w-52 p-2 shadow">
+                                <li className=' font-semibold text-gray-500 mb-1'>
+                                    <p className=''>{user?.displayName}</p>
+                                </li>
+                                <li>
+                                    <Link to='/profile'>My Profile</Link>
+                                </li>
+                                <li>
+                                    <a onClick={handleSignOut}> <CiLogout />Log Out</a>
+                                </li>
+                            </ul>
+                        </div>
+                    ) : (
+                        <Link to='/login' className="btn bg-custom-blue-5 hover:bg-custom-blue-3 text-white">LogIn <BiLogIn className='text-2xl' /></Link>
+
+                    )}
                 </div>
             </div>
         </header>
