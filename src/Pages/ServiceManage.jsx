@@ -1,7 +1,33 @@
+import { useContext, useEffect, useState } from "react";
 import { Helmet } from "react-helmet";
+import { AuthContext } from "../providers/AuthProvider";
+import axios from "axios";
+import { sweetToast } from "../utility/useToast";
+import Loading from "../Layouts/Shared/Loading";
+import { Link } from "react-router-dom";
+import UserAddedService from "../Layouts/Service/UserAddedService";
 
 
 const ServiceManage = () => {
+    const { user } = useContext(AuthContext);
+
+    const [loading, setLoading] = useState(true);
+    const [services, setServices] = useState([]);
+
+    const url = `http://localhost:5000/user-services?user_email=${user?.email}`;
+    useEffect(() => {
+        axios.get(url)
+            .then((response) => {
+                setServices(response.data);
+                setLoading(false);
+            })
+            .catch(() => {
+                sweetToast('Error!', 'Something Wrong!!', 'error');
+                setLoading(false);
+            });
+    }, [url]);
+
+    if (loading) return <Loading />;
     return (
         <div className="max-w-5xl mx-auto">
             <Helmet>
@@ -23,115 +49,23 @@ const ServiceManage = () => {
                     </thead>
 
                     <tbody>
-                        <tr>
-                            <td>
-                                <div className="flex items-center gap-3 avatar">
-                                    <div className="w-14 rounded">
-                                        <img src="https://i.ibb.co.com/NZtL370/banner1.jpg" alt="Service Image Name" />
-                                    </div>
-                                    <span className="font-semibold">Service Name</span>
-                                </div>
-                            </td>
-                            <td>
-                                <div className="font-semibold text-gray-400">
-                                    Service Fee
-                                </div>
-                            </td>
-                            <td>
-                                <div className="font-semibold text-gray-400">
-                                    Service Area
-                                </div>
-                            </td>
-                            <td>
-                                <button className="btn btn-error text-white">Delete</button>
-                            </td>
-                            <td>
-                                <button className="btn btn-info text-white">Update</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <div className="flex items-center gap-3 avatar">
-                                    <div className="w-14 rounded">
-                                        <img src="https://i.ibb.co.com/NZtL370/banner1.jpg" alt="Service Image Name" />
-                                    </div>
-                                    <span className="font-semibold">Service Name</span>
-                                </div>
-                            </td>
-                            <td>
-                                <div className="font-semibold text-gray-400">
-                                    Service Fee
-                                </div>
-                            </td>
-                            <td>
-                                <div className="font-semibold text-gray-400">
-                                    Service Area
-                                </div>
-                            </td>
-                            <td>
-                                <button className="btn btn-error text-white">Delete</button>
-                            </td>
-                            <td>
-                                <button className="btn btn-info text-white">Update</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <div className="flex items-center gap-3 avatar">
-                                    <div className="w-14 rounded">
-                                        <img src="https://i.ibb.co.com/NZtL370/banner1.jpg" alt="Service Image Name" />
-                                    </div>
-                                    <span className="font-semibold">Service Name</span>
-                                </div>
-                            </td>
-                            <td>
-                                <div className="font-semibold text-gray-400">
-                                    Service Fee
-                                </div>
-                            </td>
-                            <td>
-                                <div className="font-semibold text-gray-400">
-                                    Service Area
-                                </div>
-                            </td>
-                            <td>
-                                <button className="btn btn-error text-white">Delete</button>
-                            </td>
-                            <td>
-                                <button className="btn btn-info text-white">Update</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <div className="flex items-center gap-3 avatar">
-                                    <div className="w-14 rounded">
-                                        <img src="https://i.ibb.co.com/NZtL370/banner1.jpg" alt="Service Image Name" />
-                                    </div>
-                                    <span className="font-semibold">Service Name</span>
-                                </div>
-                            </td>
-                            <td>
-                                <div className="font-semibold text-gray-400">
-                                    Service Fee
-                                </div>
-                            </td>
-                            <td>
-                                <div className="font-semibold text-gray-400">
-                                    Service Area
-                                </div>
-                            </td>
-                            <td>
-                                <button className="btn btn-error text-white">Delete</button>
-                            </td>
-                            <td>
-                                <button className="btn btn-info text-white">Update</button>
-                            </td>
-                        </tr>
+                        {
+                            services.map((service, index) => <UserAddedService key={index} service={service} />)
+                        }
                     </tbody>
                 </table>
 
             </div>
 
+            {
+                services.length == 0 &&
+                <div className="my-10 text-center">
+                    <p className=" text-3xl font-semibold text-custom-blue-5">
+                        You have not added any services yet <br />
+                    </p>
+                    <Link to='/services-add' className="btn btn-sm bg-custom-blue-5 hover:bg-custom-blue-3 text-white mt-2">Add Service</Link>
+                </div>
+            }
         </div>
     );
 };

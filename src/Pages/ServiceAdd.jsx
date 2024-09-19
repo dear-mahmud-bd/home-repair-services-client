@@ -13,15 +13,15 @@ const ServiceAdd = () => {
     const { register, handleSubmit, setValue, formState: { errors } } = useForm();
 
     useEffect(() => {
-        setValue('providerEmail', user?.email || '');
-        setValue('providerName', user?.displayName || '');
-        setValue('providerImg', user?.photoURL || '');
+        setValue('serviceProviderEmail', user?.email || '');
+        setValue('serviceProviderName', user?.displayName || '');
+        setValue('serviceProviderImage', user?.photoURL || '');
     }, [user, setValue]);
 
     const onSubmit = (formData) => {
         const data = {
             ...formData,
-            serviceFee: parseFloat(formData.serviceFee),
+            servicePrice: parseFloat(formData.servicePrice),
             serviceTotalOrder: 0
         };
         setLoading(true);
@@ -54,21 +54,21 @@ const ServiceAdd = () => {
                 <div className="grid grid-cols-3 sm:grid-cols-6 md:grid-cols-12 gap-3">
                     <div className="col-span-6 sm:col-span-3 md:col-span-4">
                         <label className="block text-sm font-semibold">Provider Name</label>
-                        <input {...register("providerName", { required: "Provider Name is required" })}
-                            readOnly disabled className={`input input-sm input-bordered w-full ${errors.providerName ? 'input-error' : ''}`} />
-                        {errors.providerName && <p className="text-red-500 text-sm">{errors.providerName.message}</p>}
+                        <input {...register("serviceProviderName", { required: "Provider Name is required" })}
+                            readOnly disabled className={`input input-sm input-bordered w-full ${errors.serviceProviderName ? 'input-error' : ''}`} />
+                        {errors.serviceProviderName && <p className="text-red-500 text-sm">{errors.serviceProviderName.message}</p>}
                     </div>
                     <div className="col-span-6 sm:col-span-3 md:col-span-4">
                         <label className="block text-sm font-semibold">Provider Email</label>
-                        <input {...register("providerEmail", { required: "Provider Email is required" })}
-                            readOnly disabled className={`input input-sm input-bordered w-full ${errors.providerEmail ? 'input-error' : ''}`} />
-                        {errors.providerEmail && <p className="text-red-500 text-sm">{errors.providerEmail.message}</p>}
+                        <input {...register("serviceProviderEmail", { required: "Provider Email is required" })}
+                            readOnly disabled className={`input input-sm input-bordered w-full ${errors.serviceProviderEmail ? 'input-error' : ''}`} />
+                        {errors.serviceProviderEmail && <p className="text-red-500 text-sm">{errors.serviceProviderEmail.message}</p>}
                     </div>
                     <div className="col-span-6 sm:col-span-3 md:col-span-4">
                         <label className="block text-sm font-semibold">Provider Img URL</label>
-                        <input  {...register("providerImg", { required: "Provider Image URL is required" })}
-                            defaultValue={user?.photoURL || ""} readOnly disabled className={`input input-sm input-bordered w-full ${errors.providerImg ? 'input-error' : ''}`} />
-                        {errors.providerImg && <p className="text-red-500 text-sm">{errors.providerImg.message}</p>}
+                        <input  {...register("serviceProviderImage", { required: "Provider Image URL is required" })}
+                            defaultValue={user?.photoURL || ""} readOnly disabled className={`input input-sm input-bordered w-full ${errors.serviceProviderImage ? 'input-error' : ''}`} />
+                        {errors.serviceProviderImage && <p className="text-red-500 text-sm">{errors.serviceProviderImage.message}</p>}
                     </div>
                     <div className="col-span-6 sm:col-span-3 md:col-span-3">
                         <label className="block text-sm font-semibold">Service Name</label>
@@ -84,13 +84,13 @@ const ServiceAdd = () => {
                     </div>
                     <div className="col-span-6 sm:col-span-3 md:col-span-3">
                         <label className="block text-sm font-semibold">Service Area</label>
-                        <input {...register("serviceArea", { required: "Service Area is required" })}
-                            type="text" className={`input input-sm input-bordered w-full ${errors.serviceArea ? 'input-error' : ''}`} />
-                        {errors.serviceArea && <p className="text-red-500 text-sm">{errors.serviceArea.message}</p>}
+                        <input {...register("serviceLocation", { required: "Service Area is required" })}
+                            type="text" className={`input input-sm input-bordered w-full ${errors.serviceLocation ? 'input-error' : ''}`} />
+                        {errors.serviceLocation && <p className="text-red-500 text-sm">{errors.serviceLocation.message}</p>}
                     </div>
                     <div className="col-span-6 sm:col-span-3 md:col-span-2">
                         <label className="block text-sm font-semibold">Service Fee</label>
-                        <input step="0.01" type="number" {...register("serviceFee", {
+                        <input step="0.01" type="number" {...register("servicePrice", {
                             required: "Service Fee is required",
                             min: {
                                 value: 10,
@@ -98,19 +98,19 @@ const ServiceAdd = () => {
                             },
                             validate: value => value > 0 || 'Fee must be a positive number',
                         })}
-                            className={`input input-sm input-bordered w-full ${errors.serviceFee ? 'input-error' : ''}`} />
-                        {errors.serviceFee && <p className="text-red-500 text-sm">{errors.serviceFee.message}</p>}
+                            className={`input input-sm input-bordered w-full ${errors.servicePrice ? 'input-error' : ''}`} />
+                        {errors.servicePrice && <p className="text-red-500 text-sm">{errors.servicePrice.message}</p>}
                     </div>
                     <div className="col-span-full">
                         <label className="block text-sm font-semibold">Special Instructions</label>
-                        <textarea {...register("specialInstructions", {
+                        <textarea {...register("serviceDescription", {
                             required: "Special Instructions are required",
                             validate: {
                                 minWords: value => value.split(' ').filter(Boolean).length >= 6 || "At least 6 words are required",
                                 maxChars: value => value.length <= 100 || "Maximum 100 characters allowed"
                             }
-                        })} rows={2} style={{ minHeight: '3rem', maxHeight: '9rem' }} className={`textarea textarea-bordered w-full ${errors.specialInstructions ? 'input-error' : ''}`} />
-                        {errors.specialInstructions && <p className="text-red-500 text-sm">{errors.specialInstructions.message}</p>}
+                        })} rows={2} style={{ minHeight: '3rem', maxHeight: '9rem' }} className={`textarea textarea-bordered w-full ${errors.serviceDescription ? 'input-error' : ''}`} />
+                        {errors.serviceDescription && <p className="text-red-500 text-sm">{errors.serviceDescription.message}</p>}
                     </div>
                 </div>
                 <div className="flex justify-center">
