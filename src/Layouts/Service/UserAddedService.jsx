@@ -1,6 +1,8 @@
 import PropTypes from 'prop-types';
 
 const UserAddedService = ({ service }) => {
+    console.log(service);
+    
     const {
         serviceImage,
         serviceName,

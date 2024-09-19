@@ -3,6 +3,7 @@ import Banner from "../Layouts/Home/Banner";
 import Faq from "../Layouts/Home/Faq";
 import ServicesCategory from "../Layouts/Home/ServicesCategory";
 import Survey from "../Layouts/Home/Survey";
+import PopularServices from "../Layouts/Home/PopularServices";
 
 
 const Home = () => {
@@ -13,6 +14,7 @@ const Home = () => {
             </Helmet>
             <Banner></Banner>
             <ServicesCategory></ServicesCategory>
+            <PopularServices></PopularServices>
             <Survey></Survey>
             <Faq></Faq>
         </div>
