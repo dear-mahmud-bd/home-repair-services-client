@@ -1,6 +1,5 @@
 [
     {
-        "serviceId": "1001",
         "serviceProviderName": "CleanPro Services",
         "serviceProviderEmail": "ami@mahmud.com",
         "serviceProviderImage": "https://i.ibb.co.com/zZ0brtf/user.png",
@@ -12,7 +11,6 @@
         "serviceTotalOrder": 150
     },
     {
-        "serviceId": "1002",
         "serviceProviderName": "CleanPro Services",
         "serviceProviderEmail": "ami@mahmud.com",
         "serviceProviderImage": "https://i.ibb.co.com/zZ0brtf/user.png",
@@ -24,7 +22,6 @@
         "serviceTotalOrder": 75
     },
     {
-        "serviceId": "1003",
         "serviceProviderName": "CleanPro Services",
         "serviceProviderEmail": "ami@mahmud.com",
         "serviceProviderImage": "https://i.ibb.co.com/zZ0brtf/user.png",
@@ -36,7 +33,6 @@
         "serviceTotalOrder": 90
     },
     {
-        "serviceId": "1004",
         "serviceProviderName": "ElectroFix",
         "serviceProviderEmail": "ami@mahmud.com",
         "serviceProviderImage": "https://i.ibb.co.com/zZ0brtf/user.png",
@@ -48,7 +44,6 @@
         "serviceTotalOrder": 120
     },
     {
-        "serviceId": "1005",
         "serviceProviderName": "ElectroFix",
         "serviceProviderEmail": "ami@mahmud.com",
         "serviceProviderImage": "https://i.ibb.co.com/zZ0brtf/user.png",
@@ -60,7 +55,6 @@
         "serviceTotalOrder": 110
     },
     {
-        "serviceId": "1006",
         "serviceProviderName": "ElectroFix",
         "serviceProviderEmail": "ami@mahmud.com",
         "serviceProviderImage": "https://i.ibb.co.com/zZ0brtf/user.png",
@@ -72,7 +66,6 @@
         "serviceTotalOrder": 60
     },
     {
-        "serviceId": "1007",
         "serviceProviderName": "ColorWorx",
         "serviceProviderEmail": "ami@mahmud.com",
         "serviceProviderImage": "https://i.ibb.co.com/zZ0brtf/user.png",
@@ -84,7 +77,6 @@
         "serviceTotalOrder": 100
     },
     {
-        "serviceId": "1008",
         "serviceProviderName": "ColorWorx",
         "serviceProviderEmail": "ami@mahmud.com",
         "serviceProviderImage": "https://i.ibb.co.com/zZ0brtf/user.png",
@@ -96,7 +88,6 @@
         "serviceTotalOrder": 85
     },
     {
-        "serviceId": "1009",
         "serviceProviderName": "ColorWorx",
         "serviceProviderEmail": "ami@mahmud.com",
         "serviceProviderImage": "https://i.ibb.co.com/zZ0brtf/user.png",
@@ -108,7 +99,6 @@
         "serviceTotalOrder": 70
     },
     {
-        "serviceId": "1010",
         "serviceProviderName": "PipeMasters",
         "serviceProviderEmail": "ami@mahmud.com",
         "serviceProviderImage": "https://i.ibb.co.com/zZ0brtf/user.png",
@@ -120,7 +110,6 @@
         "serviceTotalOrder": 130
     },
     {
-        "serviceId": "1011",
         "serviceProviderName": "PipeMasters",
         "serviceProviderEmail": "ami@mahmud.com",
         "serviceProviderImage": "https://i.ibb.co.com/zZ0brtf/user.png",
@@ -132,7 +121,6 @@
         "serviceTotalOrder": 50
     },
     {
-        "serviceId": "1012",
         "serviceProviderName": "PipeMasters",
         "serviceProviderEmail": "ami@mahmud.com",
         "serviceProviderImage": "https://i.ibb.co.com/zZ0brtf/user.png",
@@ -144,7 +132,6 @@
         "serviceTotalOrder": 40
     },
     {
-        "serviceId": "1013",
         "serviceProviderName": "BuildRight",
         "serviceProviderEmail": "ami@mahmud.com",
         "serviceProviderImage": "https://i.ibb.co.com/zZ0brtf/user.png",
@@ -156,7 +143,6 @@
         "serviceTotalOrder": 20
     },
     {
-        "serviceId": "1014",
         "serviceProviderName": "BuildRight",
         "serviceProviderEmail": "ami@mahmud.com",
         "serviceProviderImage": "https://i.ibb.co.com/zZ0brtf/user.png",
@@ -168,7 +154,6 @@
         "serviceTotalOrder": 30
     },
     {
-        "serviceId": "1015",
         "serviceProviderName": "BuildRight",
         "serviceProviderEmail": "ami@mahmud.com",
         "serviceProviderImage": "https://i.ibb.co.com/zZ0brtf/user.png",
@@ -180,7 +165,6 @@
         "serviceTotalOrder": 25
     },
     {
-        "serviceId": "1016",
         "serviceProviderName": "TopCover Roofing",
         "serviceProviderEmail": "ami@mahmud.com",
         "serviceProviderImage": "https://i.ibb.co.com/zZ0brtf/user.png",
@@ -192,7 +176,6 @@
         "serviceTotalOrder": 45
     },
     {
-        "serviceId": "1017",
         "serviceProviderName": "TopCover Roofing",
         "serviceProviderEmail": "ami@mahmud.com",
         "serviceProviderImage": "https://i.ibb.co.com/zZ0brtf/user.png",
@@ -204,7 +187,6 @@
         "serviceTotalOrder": 150
     },
     {
-        "serviceId": "1018",
         "serviceProviderName": "TopCover Roofing",
         "serviceProviderEmail": "ami@mahmud.com",
         "serviceProviderImage": "https://i.ibb.co.com/zZ0brtf/user.png",

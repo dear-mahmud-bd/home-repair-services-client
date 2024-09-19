@@ -8,9 +8,9 @@ import { Helmet } from "react-helmet";
 const AllServices = () => {
     const [services, setServices] = useState([]);
     useEffect(() => {
-        axios.get('services.json')
+        axios.get('http://localhost:5000/services')
             .then((res) => {
-                // console.log(res.data);
+                console.log(res.data);
                 setServices(res.data);
             })
     }, [])

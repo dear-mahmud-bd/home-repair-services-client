@@ -29,18 +29,18 @@ const router = createBrowserRouter([
             { path: '*', element: <NotFound /> },
 
             // This are private route...
-            { path: '/profile', element: <PrivateRoute> <UserProfile/> </PrivateRoute> },
+            { path: '/profile', element: <PrivateRoute> <UserProfile /> </PrivateRoute> },
             {
                 path: '/services/:_id', element: <PrivateRoute> <ServicesDetails /> </PrivateRoute>,
-                loader: async () => {
-                    const res = await axios.get(`/public/services.json`);
+                loader: async ({ params }) => {
+                    const res = await axios.get(`http://localhost:5000/services/${params._id}`);
                     return res.data;
                 },
             },
-            { path: '/services-add', element: <PrivateRoute> <ServiceAdd/> </PrivateRoute> },
-            { path: '/services-manage', element: <PrivateRoute> <ServiceManage/> </PrivateRoute> },
-            { path: '/services-booked', element: <PrivateRoute> <ServicesBooked/> </PrivateRoute> },
-            { path: '/services-todo', element: <PrivateRoute> <ServiceToDo/> </PrivateRoute> },
+            { path: '/services-add', element: <PrivateRoute> <ServiceAdd /> </PrivateRoute> },
+            { path: '/services-manage', element: <PrivateRoute> <ServiceManage /> </PrivateRoute> },
+            { path: '/services-booked', element: <PrivateRoute> <ServicesBooked /> </PrivateRoute> },
+            { path: '/services-todo', element: <PrivateRoute> <ServiceToDo /> </PrivateRoute> },
         ]
     },
 ]);

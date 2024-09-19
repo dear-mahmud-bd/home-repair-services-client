@@ -1,25 +1,26 @@
 import { Helmet } from "react-helmet";
 import { RiMoneyDollarCircleLine } from "react-icons/ri";
-import { useLoaderData, useParams } from "react-router-dom";
+import { useLoaderData } from "react-router-dom";
 import { useState } from "react";
+import { AiOutlineFileDone } from "react-icons/ai";
+import { useContext } from "react";
+import { AuthContext } from "../providers/AuthProvider";
 
 const ServicesDetails = () => {
-    const services = useLoaderData();
-    const { _id } = useParams();
+    const service = useLoaderData();
 
-    const service = services.find(service => service.serviceId === _id);
+    const { user } = useContext(AuthContext);
+    console.log(user?.displayName, user?.email);
+    console.log(service);
 
-    // Mock current user data
-    const currentUser = {
-        email: "currentuser@example.com",
-        name: "John Doe"
-    };
+    // const service = services.find(service => service.serviceId === _id);
 
     // State for modal visibility and editable fields
     const [serviceDate, setServiceDate] = useState("");
     const [specialInstructions, setSpecialInstructions] = useState("");
 
     const {
+        _id,
         serviceImage,
         serviceName,
         serviceProviderEmail,
@@ -28,7 +29,8 @@ const ServicesDetails = () => {
         serviceProviderName,
         serviceProviderImage,
         serviceLocation,
-    } = service || {};
+        serviceTotalOrder,
+    } = service;
 
     if (!service) {
         return (
@@ -45,15 +47,15 @@ const ServicesDetails = () => {
     const handlePurchase = (e) => {
         e.preventDefault();
         console.log({
-            serviceId: _id,
+            _id,
             serviceName,
             servicePrice,
             serviceDate,
             specialInstructions,
-            providerEmail: "provider@example.com", 
+            providerEmail: "provider@example.com",
             providerName: serviceProviderName,
-            currentUserEmail: currentUser.email,
-            currentUserName: currentUser.name
+            currentUserEmail: user?.email,
+            currentUserName: user?.displayName
         });
     };
 
@@ -73,9 +75,11 @@ const ServicesDetails = () => {
                         <div >
                             <div className=" text-center space-y-1">
                                 <img src={serviceProviderImage} alt="Provider" className="w-24 h-24 shadow-xl rounded-full mx-auto" />
-                                <h2 className="text-xl font-semibold">Service Provider: {serviceProviderName}</h2>
+                                <h2 className="text-xl font-semibold">Provider: {serviceProviderName}</h2>
                                 <p className="text-md text-gray-400">Email: {serviceProviderEmail}</p>
-                                <p className="text-md text-gray-500">Area Covered: {serviceLocation}</p>
+                                <p className="text-md text-gray-500">
+                                    <span className="flex items-center justify-center gap-1"><AiOutlineFileDone />{serviceTotalOrder}, Area Covered: {serviceLocation}</span>
+                                </p>
                             </div>
                             <p className="mt-4">{serviceDescription}</p>
                             <div className="mt-4 flex justify-between items-center">
@@ -124,11 +128,11 @@ const ServicesDetails = () => {
                             </div>
                             <div className="col-span-6 sm:col-span-3">
                                 <label className="block text-sm font-semibold">Current User Email</label>
-                                <input type="text" value={currentUser.email} readOnly className="input input-sm input-bordered w-full" />
+                                <input type="text" value={user?.email} readOnly className="input input-sm input-bordered w-full" />
                             </div>
                             <div className="col-span-6 sm:col-span-2">
                                 <label className="block text-sm font-semibold">Current User Name</label>
-                                <input type="text" value={currentUser.name} readOnly className="input input-sm input-bordered w-full" />
+                                <input type="text" value={user?.displayName} readOnly className="input input-sm input-bordered w-full" />
                             </div>
                             <div className="col-span-6 sm:col-span-2">
                                 <label className="block text-sm font-semibold">Price</label>
