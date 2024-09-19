@@ -3,17 +3,22 @@ import { useEffect } from "react";
 import { useState } from "react";
 import ServiceCard from "../Layouts/Service/ServiceCard";
 import { Helmet } from "react-helmet";
+import Loading from "../Layouts/Shared/Loading";
 
 
 const AllServices = () => {
+    const [loading, setLoading] = useState(true);
     const [services, setServices] = useState([]);
     useEffect(() => {
         axios.get('http://localhost:5000/services')
             .then((res) => {
-                console.log(res.data);
+                // console.log(res.data);
                 setServices(res.data);
+                setLoading(false);
             })
     }, [])
+
+    if (loading) return <Loading />;
     return (
         <section className="my-5">
             <Helmet>
