@@ -34,7 +34,7 @@ const ServiceManage = () => {
                 <title>Manage My Services</title>
             </Helmet>
 
-            <h2 className="text-center text-3xl font-semibold mb-8 underline decoration-customLightBrown underline-offset-8">My added services</h2>
+            <h2 className="text-center text-3xl font-semibold mb-8 underline decoration-custom-blue-5 underline-offset-8">My added services</h2>
 
             <div className="overflow-x-auto my-5">
                 <table className="table">

@@ -7,7 +7,7 @@ import { SlLike } from "react-icons/sl";
 const Survey = () => {
     return (
         <div className="my-10">
-            <h2 className="text-center text-3xl font-semibold mb-8 underline decoration-customLightBrown underline-offset-8">Our Impact</h2>
+            <h2 className="text-center text-3xl font-semibold mb-8 underline decoration-custom-blue-5 underline-offset-8">Our Impact</h2>
             <div className="grid sm:grid-cols-2 md:grid-cols-4 gap-4 mb-6 text-center">
                 <div className=" p-6 border rounded-md space-y-3">
                     <div className="flex justify-center items-center mb-1">

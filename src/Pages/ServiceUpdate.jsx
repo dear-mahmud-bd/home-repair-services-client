@@ -44,7 +44,7 @@ const ServiceUpdate = () => {
             ...formData,
             servicePrice: parseFloat(formData.servicePrice),
         };
-        console.log(data);
+        // console.log(data);
         setLoading(true);
         axios.put(`http://localhost:5000/services/${_id}`, data)
             .then((res) => {

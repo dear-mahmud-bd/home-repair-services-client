@@ -26,7 +26,7 @@ const ServicesBooked = () => {
             });
     }, [url]);
 
-    console.log(bookings);
+    // console.log(bookings);
 
     if (loading) return <Loading />;
     return (
@@ -35,7 +35,7 @@ const ServicesBooked = () => {
                 <title>My Booked Services</title>
             </Helmet>
 
-            <h2 className="text-center text-3xl font-semibold mb-8 underline decoration-customLightBrown underline-offset-8">My booked services</h2>
+            <h2 className="text-center text-3xl font-semibold mb-8 underline decoration-custom-blue-5 underline-offset-8">My booked services</h2>
 
             <div className="overflow-x-auto my-5">
                 <table className="table">
@@ -98,7 +98,7 @@ const ServicesBooked = () => {
             {
                 bookings.length == 0 &&
                 <div className="my-10 text-center">
-                    <p className=" text-3xl font-semibold text-customSandyBrown">
+                    <p className=" text-3xl font-semibold text-custom-blue-3">
                         You have not booked any services yet <br />
                     </p>
                     <Link to='/services' className="btn btn-sm bg-custom-blue-5 hover:bg-custom-blue-3 text-white mt-2">See All Services</Link>

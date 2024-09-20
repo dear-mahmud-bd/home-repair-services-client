@@ -65,7 +65,7 @@ const ServiceToDo = () => {
                 <title>Ask For Services</title>
             </Helmet>
 
-            <h2 className="text-center text-3xl font-semibold mb-8 underline decoration-customLightBrown underline-offset-8">Asking for my services</h2>
+            <h2 className="text-center text-3xl font-semibold mb-8 underline decoration-custom-blue-5 underline-offset-8">Asking for my services</h2>
 
             <div className="overflow-x-auto my-5">
                 <table className="table">
@@ -134,7 +134,7 @@ const ServiceToDo = () => {
             {
                 bookings.length == 0 &&
                 <div className="my-10 text-center">
-                    <p className=" text-3xl font-semibold text-customSandyBrown">
+                    <p className=" text-3xl font-semibold text-custom-blue-3">
                         No one has requested your service yet
                     </p>
                 </div>

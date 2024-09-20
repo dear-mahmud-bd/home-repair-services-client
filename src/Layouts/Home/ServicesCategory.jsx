@@ -11,7 +11,7 @@ import roofing from '../../assets/roofing.png';
 const ServicesCategory = () => {
     return (
         <div className='my-10'>
-            <h2 className="text-center text-3xl font-semibold mb-8 underline decoration-customLightBrown underline-offset-8">Our Service Category</h2>
+            <h2 className="text-center text-3xl font-semibold mb-8 underline decoration-custom-blue-5 underline-offset-8">Our Service Category</h2>
             <Marquee pauseOnHover={true} speed={100} gradientWidth={50}>
             <div className="flex mb-6 text-center">
                 <div className="w-72 p-6 border rounded-md space-y-3 mx-3">
