@@ -67,6 +67,7 @@ const ServicesDetails = () => {
         // console.log(formData);
         const data = {
             ...formData,
+            serviceHolderImage: user?.photoURL,
             status: "pending",
         };
         setLoading(true);

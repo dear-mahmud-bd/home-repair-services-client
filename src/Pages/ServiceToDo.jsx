@@ -1,7 +1,35 @@
+import { useContext, useEffect, useState } from "react";
 import { Helmet } from "react-helmet";
+import { AuthContext } from "../providers/AuthProvider";
+import axios from "axios";
+import { sweetToast } from "../utility/useToast";
+import Loading from "../Layouts/Shared/Loading";
 
 
 const ServiceToDo = () => {
+    const { user } = useContext(AuthContext);
+
+    const [loading, setLoading] = useState(true);
+    const [bookings, setBookings] = useState([]);
+
+    const url = `http://localhost:5000/provider-bookings?user_email=${user?.email}`;
+    useEffect(() => {
+        axios.get(url)
+            .then((response) => {
+                setBookings(response.data);
+                setLoading(false);
+                // console.log(bookings);
+
+            })
+            .catch(() => {
+                sweetToast('Error!', 'Something Wrong!!', 'error');
+                setLoading(false);
+            });
+    }, [url]);
+
+    console.log(bookings);
+
+    if (loading) return <Loading />;
     return (
         <div className="max-w-5xl mx-auto">
             <Helmet>
@@ -15,139 +43,63 @@ const ServiceToDo = () => {
                     <thead>
                         <tr>
                             <th>Requestor</th>
-                            <th>Service Name</th>
+                            <th>Service Name+ID</th>
                             <th>Fee</th>
                             <th>Date Requested</th>
-                            <th>Action</th>
+                            <th>Status</th>
                         </tr>
                     </thead>
 
                     <tbody>
-                        <tr>
-                            <td>
-                                <div className="flex items-center gap-3 avatar">
-                                    <div className="w-14 rounded-full shadow-xl">
-                                        <img src="https://i.ibb.co.com/zZ0brtf/user.png" alt="Service Image Name" />
-                                    </div>
-                                    <span className="font-semibold">Service Name</span>
-                                </div>
-                            </td>
-                            <td>
-                                <div className="font-semibold text-gray-400">
-                                    Provider Name
-                                </div>
-                            </td>
-                            <td>
-                                <div className="font-semibold text-gray-400">
-                                    $500.00
-                                </div>
-                            </td>
-                            <td>
-                                <div className="font-semibold text-gray-400">
-                                    November 1, 2024
-                                </div>
-                            </td>
-                            <td>
-                                {/* info  success  warning */}
-                                {/* <button className="btn btn-xs btn-error text-white">pending</button> */}
-                                <select className="select select-bordered select-xs max-w-xs bg-error text-white">
-                                    <option disabled selected>pending</option>
-                                    <option>working</option>
-                                    <option>completed</option>
-                                </select>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <div className="flex items-center gap-3 avatar">
-                                    <div className="w-14 rounded-full shadow-xl">
-                                        <img src="https://i.ibb.co.com/zZ0brtf/user.png" alt="Service Image Name" />
-                                    </div>
-                                    <span className="font-semibold">Service Name</span>
-                                </div>
-                            </td>
-                            <td>
-                                <div className="font-semibold text-gray-400">
-                                    Provider Name
-                                </div>
-                            </td>
-                            <td>
-                                <div className="font-semibold text-gray-400">
-                                    $500.00
-                                </div>
-                            </td>
-                            <td>
-                                <div className="font-semibold text-gray-400">
-                                    November 1, 2024
-                                </div>
-                            </td>
-                            <td>
-                                {/* info  success  warning */}
-                                <button className="btn btn-xs btn-error text-white">pending</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <div className="flex items-center gap-3 avatar">
-                                    <div className="w-14 rounded-full shadow-xl">
-                                        <img src="https://i.ibb.co.com/zZ0brtf/user.png" alt="Service Image Name" />
-                                    </div>
-                                    <span className="font-semibold">Service Name</span>
-                                </div>
-                            </td>
-                            <td>
-                                <div className="font-semibold text-gray-400">
-                                    Provider Name
-                                </div>
-                            </td>
-                            <td>
-                                <div className="font-semibold text-gray-400">
-                                    $500.00
-                                </div>
-                            </td>
-                            <td>
-                                <div className="font-semibold text-gray-400">
-                                    November 1, 2024
-                                </div>
-                            </td>
-                            <td>
-                                {/* info  success  warning */}
-                                <button className="btn btn-xs btn-error text-white">pending</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <div className="flex items-center gap-3 avatar">
-                                    <div className="w-14 rounded-full shadow-xl">
-                                        <img src="https://i.ibb.co.com/zZ0brtf/user.png" alt="Service Image Name" />
-                                    </div>
-                                    <span className="font-semibold">Service Name</span>
-                                </div>
-                            </td>
-                            <td>
-                                <div className="font-semibold text-gray-400">
-                                    Provider Name
-                                </div>
-                            </td>
-                            <td>
-                                <div className="font-semibold text-gray-400">
-                                    $500.00
-                                </div>
-                            </td>
-                            <td>
-                                <div className="font-semibold text-gray-400">
-                                    November 1, 2024
-                                </div>
-                            </td>
-                            <td>
-                                {/* info  success  warning */}
-                                <button className="btn btn-xs btn-error text-white">pending</button>
-                            </td>
-                        </tr>
+                        {
+                            bookings.map((booking, index) => (
+                                <tr key={index}>
+                                    <td>
+                                        <div className="flex items-center gap-3 avatar">
+                                            <div className="w-14 rounded">
+                                                <img src={booking?.serviceHolderImage} alt={booking?.serviceHolderName} />
+                                            </div>
+                                            <span>
+                                                <span className="font-semibold">{booking?.serviceHolderName}</span><br />
+                                                <span className="text-sm opacity-50">{booking?.serviceHolderEmail}</span>
+                                            </span>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div className="font-semibold">
+                                            <span className="text-sm opacity-90">{booking?.serviceName}</span>
+                                            <br />
+                                            <span className="text-xs opacity-40"> {booking?.serviceId} </span>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div className="font-semibold text-gray-400">
+                                            $ {booking?.serviceFee}
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div className="font-semibold text-gray-400">
+                                            {booking?.serviceTakingDate}
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <button className="btn btn-xs btn-error text-white">{booking?.status}</button>
+                                    </td>
+                                </tr>
+                            ))
+                        }
                     </tbody>
                 </table>
 
             </div>
+            {
+                bookings.length == 0 &&
+                <div className="my-10 text-center">
+                    <p className=" text-3xl font-semibold text-customSandyBrown">
+                        No one has requested your service yet
+                    </p>
+                </div>
+            }
 
         </div>
     );
