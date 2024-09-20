@@ -147,6 +147,7 @@ const ServiceUpdate = () => {
                             required: "Special Instructions are required",
                             validate: {
                                 minWords: value => value.split(' ').filter(Boolean).length >= 6 || "At least 6 words are required",
+                                minChars: value => value.length >= 60 || "Minimum 60 characters to make sentence",
                                 maxChars: value => value.length <= 100 || "Maximum 100 characters allowed"
                             }
                         })} rows={2} style={{ minHeight: '3rem', maxHeight: '9rem' }} className={`textarea textarea-bordered w-full ${errors.serviceDescription ? 'input-error' : ''}`} />
