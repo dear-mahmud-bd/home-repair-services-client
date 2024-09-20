@@ -2,11 +2,12 @@ import { useContext, useEffect, useState } from "react";
 import { Helmet } from "react-helmet";
 import { AuthContext } from "../providers/AuthProvider";
 import { useForm } from "react-hook-form";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { sweetToast } from "../utility/useToast";
+import useAxiosSecure from "../hooks/useAxiosSecure";
 
 const ServiceAdd = () => {
+    const axiosSecure = useAxiosSecure();
     const [loading, setLoading] = useState(false);
     const { user } = useContext(AuthContext);
     const navigate = useNavigate();
@@ -26,7 +27,8 @@ const ServiceAdd = () => {
         };
         setLoading(true);
         // console.log(data);
-        axios.post('http://localhost:5000/services', data)
+        // axios.post('http://localhost:5000/services', { withCredentials: true }, data)
+        axiosSecure.post('/services', data)
             .then(res => {
                 // console.log(res?.data);
                 setLoading(false);

@@ -7,12 +7,13 @@ import { useContext } from "react";
 import { AuthContext } from "../providers/AuthProvider";
 import { useForm } from "react-hook-form";
 import { DayPicker } from 'react-day-picker';
-import axios from "axios";
 import { sweetToast } from "../utility/useToast";
 import 'react-day-picker/dist/style.css';
+import useAxiosSecure from "../hooks/useAxiosSecure";
 
 
 const ServicesDetails = () => {
+    const axiosSecure = useAxiosSecure();
     const [loading, setLoading] = useState(false);
     const [selectedDate, setSelectedDate] = useState(null);
     const [showCalendar, setShowCalendar] = useState(false);
@@ -71,7 +72,9 @@ const ServicesDetails = () => {
             status: "pending",
         };
         setLoading(true);
-        axios.post('http://localhost:5000/bookings', data)
+
+        // axios.post('http://localhost:5000/bookings', data)
+        axiosSecure.post(`/bookings`, data)
             .then(res => {
                 // console.log(res?.data);
                 setLoading(false);

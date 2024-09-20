@@ -1,10 +1,11 @@
 import PropTypes from 'prop-types';
 import Swal from 'sweetalert2';
 import { showToast } from '../../utility/useToast';
-import axios from 'axios';
 import { Link } from 'react-router-dom';
+import useAxiosSecure from '../../hooks/useAxiosSecure';
 
 const UserAddedService = ({ service, services, setServices }) => {
+    const axiosSecure = useAxiosSecure();
     // console.log(service);
     const {
         _id,
@@ -25,7 +26,8 @@ const UserAddedService = ({ service, services, setServices }) => {
             confirmButtonText: 'Yes, delete it!'
         }).then((result) => {
             if (result.isConfirmed) {
-                axios.delete(`http://localhost:5000/services/${_id}`)
+                // axios.delete(`http://localhost:5000/services/${_id}`, { withCredentials: true })
+                axiosSecure.delete(`/services/${_id}`)
                     .then(res => {
                         const data = res.data;
                         // console.log(data);

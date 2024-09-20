@@ -4,11 +4,12 @@ import { useLoaderData, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { Helmet } from "react-helmet";
 import Loading from "../Layouts/Shared/Loading";
-import axios from "axios";
 import { showToast } from "../utility/useToast";
+import useAxiosSecure from "../hooks/useAxiosSecure";
 
 
 const ServiceUpdate = () => {
+    const axiosSecure = useAxiosSecure();
     const [loading, setLoading] = useState(false);
     const { user } = useContext(AuthContext);
     const service = useLoaderData();
@@ -46,7 +47,8 @@ const ServiceUpdate = () => {
         };
         // console.log(data);
         setLoading(true);
-        axios.put(`http://localhost:5000/services/${_id}`, data)
+        // axios.put(`http://localhost:5000/services/${_id}`, { withCredentials: true }, data)
+        axiosSecure.put(`/services/${_id}`, data)
             .then((res) => {
                 const data = res.data;
                 if (data.modifiedCount > 0) {

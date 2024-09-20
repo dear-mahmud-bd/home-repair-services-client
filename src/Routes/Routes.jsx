@@ -15,6 +15,8 @@ import ServiceManage from "../Pages/ServiceManage";
 import ServicesBooked from "../Pages/ServicesBooked";
 import ServiceToDo from "../Pages/ServiceToDo";
 import ServiceUpdate from "../Pages/ServiceUpdate";
+// import useAxiosSecure from "../hooks/useAxiosSecure";
+import { axiosSecure } from "../hooks/useAxiosSecure";
 
 
 const router = createBrowserRouter([
@@ -43,7 +45,10 @@ const router = createBrowserRouter([
             {
                 path: '/services-update/:_id', element: <PrivateRoute> <ServiceUpdate /> </PrivateRoute>,
                 loader: async ({ params }) => {
-                    const res = await axios.get(`http://localhost:5000/services/${params._id}`);
+                    // const res = await axios.get(`http://localhost:5000/services/${params._id}`, { withCredentials: true });
+                    // const axiosSecure = useAxiosSecure();
+                    // const res = await axiosSecure.get(`/services/${params._id}`);
+                    const res = await axiosSecure.get(`/services/${params._id}`);
                     return res.data;
                 },
             },

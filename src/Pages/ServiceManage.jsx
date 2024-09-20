@@ -1,31 +1,35 @@
 import { useContext, useEffect, useState } from "react";
 import { Helmet } from "react-helmet";
 import { AuthContext } from "../providers/AuthProvider";
-import axios from "axios";
 import { sweetToast } from "../utility/useToast";
 import Loading from "../Layouts/Shared/Loading";
 import { Link } from "react-router-dom";
 import UserAddedService from "../Layouts/Service/UserAddedService";
+import useAxiosSecure from "../hooks/useAxiosSecure";
 
 
 const ServiceManage = () => {
+    const axiosSecure = useAxiosSecure();
     const { user } = useContext(AuthContext);
 
     const [loading, setLoading] = useState(true);
     const [services, setServices] = useState([]);
 
-    const url = `http://localhost:5000/user-services?user_email=${user?.email}`;
+    // const url = `http://localhost:5000/user-services?user_email=${user?.email}`;
     useEffect(() => {
-        axios.get(url)
-            .then((response) => {
-                setServices(response.data);
-                setLoading(false);
-            })
-            .catch(() => {
-                sweetToast('Error!', 'Something Wrong!!', 'error');
-                setLoading(false);
-            });
-    }, [url]);
+        // axios.get(url, { withCredentials: true })
+        if(user?.email){
+            axiosSecure.get(`/user-services?user_email=${user.email}`)
+                .then((response) => {
+                    setServices(response.data);
+                    setLoading(false);
+                })
+                .catch(() => {
+                    sweetToast('Error!', 'Something Wrong!!', 'error');
+                    setLoading(false);
+                });
+        }
+    }, [axiosSecure, user?.email]);
 
     if (loading) return <Loading />;
     return (

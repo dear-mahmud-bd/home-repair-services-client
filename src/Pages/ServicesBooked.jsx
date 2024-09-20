@@ -1,30 +1,34 @@
 import { useContext, useEffect, useState } from "react";
 import { Helmet } from "react-helmet";
 import { AuthContext } from "../providers/AuthProvider";
-import axios from "axios";
 import { sweetToast } from "../utility/useToast";
 import Loading from "../Layouts/Shared/Loading";
 import { Link } from "react-router-dom";
+import useAxiosSecure from "../hooks/useAxiosSecure";
 
 
 const ServicesBooked = () => {
+    const axiosSecure = useAxiosSecure();
     const { user } = useContext(AuthContext);
 
     const [loading, setLoading] = useState(true);
     const [bookings, setBookings] = useState([]);
 
-    const url = `http://localhost:5000/holder-bookings?user_email=${user?.email}`;
+    // const url = `http://localhost:5000/holder-bookings?user_email=${user?.email}`;
     useEffect(() => {
-        axios.get(url)
-            .then((response) => {
-                setBookings(response.data);
-                setLoading(false);
-            })
-            .catch(() => {
-                sweetToast('Error!', 'Something Wrong!!', 'error');
-                setLoading(false);
-            });
-    }, [url]);
+        if(user?.email){
+            // axios.get(url, { withCredentials: true })
+            axiosSecure.get(`/holder-bookings?user_email=${user.email}`)
+                .then((response) => {
+                    setBookings(response.data);
+                    setLoading(false);
+                })
+                .catch(() => {
+                    sweetToast('Error!', 'Something Wrong!!', 'error');
+                    setLoading(false);
+                });
+        }
+    }, [user?.email, axiosSecure]);
 
     // console.log(bookings);
 
@@ -84,8 +88,8 @@ const ServicesBooked = () => {
                                     </td>
                                     <td>
                                         <span className={`pb-1 badge ${booking?.status === 'pending' ? 'badge-error' :
-                                                booking?.status === 'working' ? 'badge-warning' :
-                                                    booking?.status === 'completed' ? 'badge-success' : ''
+                                            booking?.status === 'working' ? 'badge-warning' :
+                                                booking?.status === 'completed' ? 'badge-success' : ''
                                             } gap-2 m-1 font-semibold text-white`}>{booking?.status}</span>
                                     </td>
                                 </tr>

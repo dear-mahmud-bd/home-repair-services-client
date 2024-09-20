@@ -1,21 +1,23 @@
 import { useContext, useEffect, useState } from "react";
 import { Helmet } from "react-helmet";
 import { AuthContext } from "../providers/AuthProvider";
-import axios from "axios";
 import { sweetToast } from "../utility/useToast";
 import Loading from "../Layouts/Shared/Loading";
 import Swal from "sweetalert2";
+import useAxiosSecure from "../hooks/useAxiosSecure";
 
 
 const ServiceToDo = () => {
+    const axiosSecure = useAxiosSecure();
     const { user } = useContext(AuthContext);
 
     const [loading, setLoading] = useState(true);
     const [bookings, setBookings] = useState([]);
 
-    const url = `http://localhost:5000/provider-bookings?user_email=${user?.email}`;
+    const url = `/provider-bookings?user_email=${user?.email}`;
     useEffect(() => {
-        axios.get(url)
+        // axios.get(url)
+        axiosSecure.get(url)
             .then((response) => {
                 setBookings(response.data);
                 setLoading(false);
@@ -26,7 +28,7 @@ const ServiceToDo = () => {
                 sweetToast('Error!', 'Something Wrong!!', 'error');
                 setLoading(false);
             });
-    }, [url]);
+    }, [axiosSecure, url]);
 
     // console.log(bookings);
     const handleStatusChange = (bookingId, newStatus) => {
@@ -47,7 +49,8 @@ const ServiceToDo = () => {
                     )
                 );
                 // Optionally, send a request to update the status in the backend
-                axios.patch(`http://localhost:5000/bookings-status/${bookingId}`, { status: newStatus })
+                // axios.patch(`http://localhost:5000/bookings-status/${bookingId}`, { status: newStatus })
+                axiosSecure.get(`/bookings-status/${bookingId}`)
                     .then(() => {
                         sweetToast('Success!', `Status updated to ${newStatus}`, 'success');
                     })
