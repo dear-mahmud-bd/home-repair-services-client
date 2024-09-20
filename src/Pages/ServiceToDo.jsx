@@ -4,6 +4,7 @@ import { AuthContext } from "../providers/AuthProvider";
 import axios from "axios";
 import { sweetToast } from "../utility/useToast";
 import Loading from "../Layouts/Shared/Loading";
+import Swal from "sweetalert2";
 
 
 const ServiceToDo = () => {
@@ -27,7 +28,35 @@ const ServiceToDo = () => {
             });
     }, [url]);
 
-    console.log(bookings);
+    // console.log(bookings);
+    const handleStatusChange = (bookingId, newStatus) => {
+        Swal.fire({
+            title: 'Are you sure?',
+            text: `You want to update Status`,
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#008000',
+            cancelButtonColor: '#d33333',
+            confirmButtonText: 'Yes!',
+            cancelButtonText: 'No'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                setBookings((prevBookings) =>
+                    prevBookings.map((booking) =>
+                        booking._id === bookingId ? { ...booking, status: newStatus } : booking
+                    )
+                );
+                // Optionally, send a request to update the status in the backend
+                axios.patch(`http://localhost:5000/bookings-status/${bookingId}`, { status: newStatus })
+                    .then(() => {
+                        sweetToast('Success!', `Status updated to ${newStatus}`, 'success');
+                    })
+                    .catch(() => {
+                        sweetToast('Error!', 'Failed to update status', 'error');
+                    });
+            }
+        })
+    };
 
     if (loading) return <Loading />;
     return (
@@ -83,7 +112,17 @@ const ServiceToDo = () => {
                                         </div>
                                     </td>
                                     <td>
-                                        <button className="btn btn-xs btn-error text-white">{booking?.status}</button>
+                                        {/* Dropdown for changing the status */}
+                                        <select
+                                            value={booking?.status}
+                                            onChange={(e) => handleStatusChange(booking._id, e.target.value)}
+                                            className="font-semibold select select-bordered select-xs"
+                                            disabled={booking?.status === "completed"} // Disable dropdown if status is 'completed'
+                                        >
+                                            <option className="font-semibold" value="pending" disabled={booking?.status !== "pending"}>Pending</option>
+                                            <option className="font-semibold" value="working" disabled={booking?.status === "completed" || booking?.status === "working"}>Working</option>
+                                            <option className="font-semibold" value="completed" disabled={booking?.status !== "working"}>Completed</option>
+                                        </select>
                                     </td>
                                 </tr>
                             ))

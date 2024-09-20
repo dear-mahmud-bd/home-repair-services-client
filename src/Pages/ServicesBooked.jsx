@@ -13,7 +13,7 @@ const ServicesBooked = () => {
     const [loading, setLoading] = useState(true);
     const [bookings, setBookings] = useState([]);
 
-    const url = `http://localhost:5000/user-bookings?user_email=${user?.email}`;
+    const url = `http://localhost:5000/holder-bookings?user_email=${user?.email}`;
     useEffect(() => {
         axios.get(url)
             .then((response) => {
@@ -83,7 +83,10 @@ const ServicesBooked = () => {
                                         </div>
                                     </td>
                                     <td>
-                                        <button className="btn btn-xs btn-error text-white">{booking?.status}</button>
+                                        <span className={`pb-1 badge ${booking?.status === 'pending' ? 'badge-error' :
+                                                booking?.status === 'working' ? 'badge-warning' :
+                                                    booking?.status === 'completed' ? 'badge-success' : ''
+                                            } gap-2 m-1 font-semibold text-white`}>{booking?.status}</span>
                                     </td>
                                 </tr>
                             ))
