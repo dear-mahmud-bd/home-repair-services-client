@@ -30,7 +30,7 @@ const UserAddedService = ({ service, services, setServices }) => {
                         const data = res.data;
                         // console.log(data);
                         if (data.deletedCount > 0) {
-                            showToast('success', 'Your tourist spot has been deleted.');
+                            showToast('success', 'Your service has been deleted.');
                             const remaining = services.filter(rem => rem._id !== _id);
                             setServices(remaining);
                         }

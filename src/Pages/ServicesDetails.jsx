@@ -1,23 +1,27 @@
 import { Helmet } from "react-helmet";
 import { RiMoneyDollarCircleLine } from "react-icons/ri";
-import { useLoaderData } from "react-router-dom";
-import { useState } from "react";
+import { useLoaderData, useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
 import { AiOutlineFileDone } from "react-icons/ai";
 import { useContext } from "react";
 import { AuthContext } from "../providers/AuthProvider";
+import { useForm } from "react-hook-form";
+import { DayPicker } from 'react-day-picker';
+import 'react-day-picker/dist/style.css';
+import axios from "axios";
+import { sweetToast } from "../utility/useToast";
 
 const ServicesDetails = () => {
+    const [loading, setLoading] = useState(false);
+    const [selectedDate, setSelectedDate] = useState(null);
+    const [showCalendar, setShowCalendar] = useState(false);
+    const navigate = useNavigate();
+    const { user } = useContext(AuthContext);
     const service = useLoaderData();
 
-    const { user } = useContext(AuthContext);
     // console.log(user?.displayName, user?.email);
     // console.log(service);
-
     // const service = services.find(service => service.serviceId === _id);
-
-    // State for modal visibility and editable fields
-    const [serviceDate, setServiceDate] = useState("");
-    const [specialInstructions, setSpecialInstructions] = useState("");
 
     const {
         _id,
@@ -32,6 +36,53 @@ const ServicesDetails = () => {
         serviceTotalOrder,
     } = service;
 
+    const { register, handleSubmit, setValue, formState: { errors } } = useForm();
+    useEffect(() => {
+        setValue('serviceId', _id || '');
+        setValue('serviceName', serviceName || '');
+        setValue('serviceImage', serviceImage || '');
+        setValue('serviceFee', servicePrice || '');
+        setValue('serviceProviderName', serviceProviderName || '');
+        setValue('serviceProviderEmail', serviceProviderEmail || '');
+        setValue('serviceHolderName', user?.displayName || '');
+        setValue('serviceHolderEmail', user?.email || '');
+
+    }, [_id, serviceName, serviceImage, servicePrice, serviceProviderName, serviceProviderEmail, user, setValue]);
+
+
+
+    const today = new Date();
+    const threeDaysLater = new Date(today);
+    threeDaysLater.setDate(today.getDate() + 4);
+    const isFriday = (date) => date.getDay() === 5;
+    const handleDateSelect = (date) => {
+        setSelectedDate(date);
+        const formattedDate = date?.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
+        setValue('serviceTakingDate', formattedDate, { shouldValidate: true });
+        setShowCalendar(false);
+    };
+
+    const handlePurchase = (formData) => {
+        console.log(formData);
+        setLoading(true);
+        axios.post('http://localhost:5000/bookings', formData)
+            .then(res => {
+                // console.log(res?.data);
+                setLoading(false);
+                if (res?.data.acknowledged) {
+                    sweetToast('Success!', 'Service Booked Successfully', 'success');
+                    navigate('/services-booked');
+                } else {
+                    sweetToast('Error!', 'Something Wrong!!', 'error');
+                }
+            })
+            .catch(() => {
+                setLoading(false);
+                sweetToast('Error!', 'Something Wrong!!', 'error');
+            })
+    };
+
+
     if (!service) {
         return (
             <div className="text-center flex flex-col items-center justify-center h-60 md:h-96">
@@ -43,22 +94,6 @@ const ServicesDetails = () => {
             </div>
         );
     }
-
-    const handlePurchase = (e) => {
-        e.preventDefault();
-        console.log({
-            _id,
-            serviceName,
-            servicePrice,
-            serviceDate,
-            specialInstructions,
-            providerEmail: "provider@example.com",
-            providerName: serviceProviderName,
-            currentUserEmail: user?.email,
-            currentUserName: user?.displayName
-        });
-    };
-
     return (
         <div>
             <Helmet>
@@ -104,61 +139,101 @@ const ServicesDetails = () => {
                             <button className="btn btn-sm btn-circle btn-outline text-red-500 hover:bg-red-500 hover:border-red-500">X</button>
                         </form>
                     </div>
-                    <form onSubmit={handlePurchase}>
-                        <div className="grid grid-cols-3 sm:grid-cols-6 gap-4 mb-4">
-                            <div className="col-span-6 sm:col-span-3">
-                                <label className="block text-sm font-semibold">Service ID</label>
-                                <input type="text" value={_id} readOnly className="input input-sm input-bordered w-full" />
+                    <form onSubmit={handleSubmit(handlePurchase)}>
+                        <div className="grid grid-cols-3 sm:grid-cols-6 md:grid-cols-12 gap-3">
+                            {/* Service ID */}
+                            <div className="col-span-6 sm:col-span-3 md:col-span-4">
+                                <label className="block text-sm font-semibold">Service Id</label>
+                                <input {...register("serviceId", { required: "Service Id is required" })}
+                                    readOnly disabled className={`input input-sm input-bordered w-full ${errors.serviceId ? 'input-error' : ''}`} />
+                                {errors.serviceId && <p className="text-red-500 text-sm">{errors.serviceId.message}</p>}
                             </div>
-                            <div className="col-span-6 sm:col-span-3">
+                            {/* Service Name */}
+                            <div className="col-span-6 sm:col-span-3 md:col-span-4">
                                 <label className="block text-sm font-semibold">Service Name</label>
-                                <input type="text" value={serviceName} readOnly className="input input-sm input-bordered w-full" />
+                                <input  {...register("serviceName", { required: "Service Name is required" })}
+                                    defaultValue={user?.photoURL || ""} readOnly disabled className={`input input-sm input-bordered w-full ${errors.serviceName ? 'input-error' : ''}`} />
+                                {errors.serviceName && <p className="text-red-500 text-sm">{errors.serviceName.message}</p>}
                             </div>
-                            <div className="col-span-6 sm:col-span-3">
-                                <label className="block text-sm font-semibold">Service Image</label>
-                                <input type="text" value={serviceImage} readOnly className="input input-sm input-bordered w-full" />
+                            {/* Service Image URL */}
+                            <div className="col-span-6 sm:col-span-3 md:col-span-4">
+                                <label className="block text-sm font-semibold">Service Image URL</label>
+                                <input  {...register("serviceImage", { required: "Service Image URL is required" })}
+                                    defaultValue={user?.photoURL || ""} readOnly disabled className={`input input-sm input-bordered w-full ${errors.serviceImage ? 'input-error' : ''}`} />
+                                {errors.serviceImage && <p className="text-red-500 text-sm">{errors.serviceImage.message}</p>}
                             </div>
-                            <div className="col-span-6 sm:col-span-3">
-                                <label className="block text-sm font-semibold">Provider Email</label>
-                                <input type="text" value="provider@example.com" readOnly className="input input-sm input-bordered w-full" />
+                            {/* Service Fee */}
+                            <div className="col-span-6 sm:col-span-3 md:col-span-4">
+                                <label className="block text-sm font-semibold">$ Service Fee</label>
+                                <input {...register("serviceFee", { required: "Service Fee is required" })}
+                                    readOnly disabled className={`input input-sm input-bordered w-full ${errors.serviceFee ? 'input-error' : ''}`} />
+                                {errors.serviceFee && <p className="text-red-500 text-sm">{errors.serviceFee.message}</p>}
                             </div>
-                            <div className="col-span-6 sm:col-span-3">
+                            {/* Service Provider Name */}
+                            <div className="col-span-6 sm:col-span-3 md:col-span-4">
                                 <label className="block text-sm font-semibold">Provider Name</label>
-                                <input type="text" value={serviceProviderName} readOnly className="input input-sm input-bordered w-full" />
+                                <input {...register("serviceProviderName", { required: "Provider Name is required" })}
+                                    readOnly disabled className={`input input-sm input-bordered w-full ${errors.serviceProviderName ? 'input-error' : ''}`} />
+                                {errors.serviceProviderName && <p className="text-red-500 text-sm">{errors.serviceProviderName.message}</p>}
                             </div>
-                            <div className="col-span-6 sm:col-span-3">
-                                <label className="block text-sm font-semibold">Current User Email</label>
-                                <input type="text" value={user?.email} readOnly className="input input-sm input-bordered w-full" />
+                            {/* Service Provider Email */}
+                            <div className="col-span-6 sm:col-span-3 md:col-span-4">
+                                <label className="block text-sm font-semibold">Provider Email</label>
+                                <input {...register("serviceProviderEmail", { required: "Provider Email is required" })}
+                                    readOnly disabled className={`input input-sm input-bordered w-full ${errors.serviceProviderEmail ? 'input-error' : ''}`} />
+                                {errors.serviceProviderEmail && <p className="text-red-500 text-sm">{errors.serviceProviderEmail.message}</p>}
                             </div>
-                            <div className="col-span-6 sm:col-span-2">
-                                <label className="block text-sm font-semibold">Current User Name</label>
-                                <input type="text" value={user?.displayName} readOnly className="input input-sm input-bordered w-full" />
+                            {/* Your Name */}
+                            <div className="col-span-6 sm:col-span-3 md:col-span-4">
+                                <label className="block text-sm font-semibold">Your Name</label>
+                                <input {...register("serviceHolderName", { required: "Your Name is required" })}
+                                    readOnly disabled className={`input input-sm input-bordered w-full ${errors.serviceHolderName ? 'input-error' : ''}`} />
+                                {errors.serviceHolderName && <p className="text-red-500 text-sm">{errors.serviceHolderName.message}</p>}
                             </div>
-                            <div className="col-span-6 sm:col-span-2">
-                                <label className="block text-sm font-semibold">Price</label>
-                                <input type="text" value={servicePrice} readOnly className="input input-sm input-bordered w-full" />
+                            {/* Your Email */}
+                            <div className="col-span-6 sm:col-span-3 md:col-span-4">
+                                <label className="block text-sm font-semibold">Your Email</label>
+                                <input {...register("serviceHolderEmail", { required: "Your Email is required" })}
+                                    readOnly disabled className={`input input-sm input-bordered w-full ${errors.serviceHolderEmail ? 'input-error' : ''}`} />
+                                {errors.serviceHolderEmail && <p className="text-red-500 text-sm">{errors.serviceHolderEmail.message}</p>}
                             </div>
-                            <div className="col-span-6 sm:col-span-2">
+                            {/* Service Taking Date */}
+                            <div className="col-span-6 sm:col-span-3 md:col-span-4">
                                 <label className="block text-sm font-semibold">Service Taking Date</label>
-                                <input
-                                    type="date"
-                                    value={serviceDate}
-                                    onChange={(e) => setServiceDate(e.target.value)}
-                                    className="input input-sm input-bordered w-full"
-                                />
+                                <input type="text" value={selectedDate ? selectedDate.toLocaleDateString('en-CA') : ""} placeholder="YYYY-MM-DD"
+                                    onClick={() => setShowCalendar(!showCalendar)} className={`input input-sm input-bordered w-full cursor-pointer ${errors.serviceTakingDate ? 'border-red-500' : ''}`} />
+                                <input type="hidden" {...register("serviceTakingDate", { required: "Service Taking Date is required" })} />
+                                {errors.serviceTakingDate && (<p className="text-red-500 text-sm">{errors.serviceTakingDate.message}</p>)}
+
+                                {showCalendar && (
+                                    <div className="relative mt-2">
+                                        <DayPicker mode="single" disabled={[{ before: threeDaysLater }, isFriday]} selected={selectedDate} onSelect={handleDateSelect} modifiers={{
+                                            selectable: (date) => date >= threeDaysLater && !isFriday(date)
+                                        }} />
+                                    </div>
+                                )}
                             </div>
-                            <div className="col-span-6">
+
+                            {/* Special Instructions For Provider */}
+                            <div className="col-span-full">
                                 <label className="block text-sm font-semibold">Special Instructions</label>
-                                <textarea value={specialInstructions} rows={2} style={{ minHeight: '3rem', maxHeight: '7rem' }}
-                                    onChange={(e) => setSpecialInstructions(e.target.value)}
-                                    className="textarea textarea-bordered w-full" />
+                                <textarea {...register("serviceDescription", {
+                                    required: "Special Instructions are required",
+                                    validate: {
+                                        minWords: value => value.split(' ').filter(Boolean).length >= 6 || "At least 6 words are required",
+                                        maxChars: value => value.length <= 100 || "Maximum 100 characters allowed"
+                                    }
+                                })} rows={2} style={{ minHeight: '3rem', maxHeight: '9rem' }} className={`textarea textarea-bordered w-full ${errors.serviceDescription ? 'input-error' : ''}`} />
+                                {errors.serviceDescription && <p className="text-red-500 text-sm">{errors.serviceDescription.message}</p>}
                             </div>
                         </div>
                         <div className="modal-action">
                             <form method="dialog">
                                 <button className="btn btn-warning text-white">Not Now</button>
                             </form>
-                            <button type="submit" className="btn bg-custom-blue-5 hover:bg-custom-blue-3 text-white">Purchase</button>
+                            <button type="submit" className="btn bg-custom-blue-5 hover:bg-custom-blue-3 text-white">
+                                {loading ? <span className="loading loading-spinner loading-xs"></span> : 'Purchase'}
+                            </button>
                         </div>
                     </form>
                 </div>
