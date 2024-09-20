@@ -67,12 +67,12 @@ const AuthProvider = ({ children }) => {
             setLoading(false);
 
             if (currentUser) {
-                axios.post('http://localhost:5000/jwt', loggedUser, { withCredentials: true })
+                axios.post('https://home-repair-services-server-02.vercel.app/jwt', loggedUser, { withCredentials: true })
                     .then(res => {
                         console.log('setup : ', res.data);
                     })
             } else {
-                axios.post('http://localhost:5000/logout', loggedUser, {
+                axios.post('https://home-repair-services-server-02.vercel.app/logout', loggedUser, {
                     withCredentials: true
                 })
                     .then(res => {

@@ -15,7 +15,7 @@ const ServiceManage = () => {
     const [loading, setLoading] = useState(true);
     const [services, setServices] = useState([]);
 
-    // const url = `http://localhost:5000/user-services?user_email=${user?.email}`;
+    // const url = `https://home-repair-services-server-02.vercel.app/user-services?user_email=${user?.email}`;
     useEffect(() => {
         // axios.get(url, { withCredentials: true })
         if(user?.email){

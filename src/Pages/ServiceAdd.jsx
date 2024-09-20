@@ -27,7 +27,7 @@ const ServiceAdd = () => {
         };
         setLoading(true);
         // console.log(data);
-        // axios.post('http://localhost:5000/services', { withCredentials: true }, data)
+        // axios.post('https://home-repair-services-server-02.vercel.app/services', { withCredentials: true }, data)
         axiosSecure.post('/services', data)
             .then(res => {
                 // console.log(res?.data);

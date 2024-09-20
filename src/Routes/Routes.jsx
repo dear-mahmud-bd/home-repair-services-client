@@ -36,7 +36,7 @@ const router = createBrowserRouter([
             {
                 path: '/services/:_id', element: <PrivateRoute> <ServicesDetails /> </PrivateRoute>,
                 loader: async ({ params }) => {
-                    const res = await axios.get(`http://localhost:5000/services/${params._id}`);
+                    const res = await axios.get(`https://home-repair-services-server-02.vercel.app/services/${params._id}`);
                     return res.data;
                 },
             },
@@ -45,7 +45,7 @@ const router = createBrowserRouter([
             {
                 path: '/services-update/:_id', element: <PrivateRoute> <ServiceUpdate /> </PrivateRoute>,
                 loader: async ({ params }) => {
-                    // const res = await axios.get(`http://localhost:5000/services/${params._id}`, { withCredentials: true });
+                    // const res = await axios.get(`https://home-repair-services-server-02.vercel.app/services/${params._id}`, { withCredentials: true });
                     // const axiosSecure = useAxiosSecure();
                     // const res = await axiosSecure.get(`/services/${params._id}`);
                     const res = await axiosSecure.get(`/services/${params._id}`);

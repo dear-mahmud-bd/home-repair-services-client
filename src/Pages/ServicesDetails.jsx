@@ -73,7 +73,7 @@ const ServicesDetails = () => {
         };
         setLoading(true);
 
-        // axios.post('http://localhost:5000/bookings', data)
+        // axios.post('https://home-repair-services-server-02.vercel.app/bookings', data)
         axiosSecure.post(`/bookings`, data)
             .then(res => {
                 // console.log(res?.data);

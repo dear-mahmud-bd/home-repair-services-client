@@ -49,7 +49,7 @@ const ServiceToDo = () => {
                     )
                 );
                 // Optionally, send a request to update the status in the backend
-                // axios.patch(`http://localhost:5000/bookings-status/${bookingId}`, { status: newStatus })
+                // axios.patch(`https://home-repair-services-server-02.vercel.app/bookings-status/${bookingId}`, { status: newStatus })
                 axiosSecure.get(`/bookings-status/${bookingId}`)
                     .then(() => {
                         sweetToast('Success!', `Status updated to ${newStatus}`, 'success');

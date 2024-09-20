@@ -14,7 +14,7 @@ const AllServices = () => {
     const fetchServices = async (searchTerm = "") => {
         setLoading(true);
         try {
-            const url = `http://localhost:5000/services${searchTerm ? `?service_name=${searchTerm}` : ""}`;
+            const url = `https://home-repair-services-server-02.vercel.app/services${searchTerm ? `?service_name=${searchTerm}` : ""}`;
             const res = await axios.get(url);
             setServices(res.data);
         } catch {

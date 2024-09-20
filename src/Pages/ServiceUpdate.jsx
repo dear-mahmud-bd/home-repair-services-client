@@ -47,7 +47,7 @@ const ServiceUpdate = () => {
         };
         // console.log(data);
         setLoading(true);
-        // axios.put(`http://localhost:5000/services/${_id}`, { withCredentials: true }, data)
+        // axios.put(`https://home-repair-services-server-02.vercel.app/services/${_id}`, { withCredentials: true }, data)
         axiosSecure.put(`/services/${_id}`, data)
             .then((res) => {
                 const data = res.data;

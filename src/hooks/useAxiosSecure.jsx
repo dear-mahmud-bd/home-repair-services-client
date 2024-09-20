@@ -6,7 +6,7 @@ import { showToast } from "../utility/useToast";
 
 
 export const axiosSecure = axios.create({
-    baseURL: 'http://localhost:5000',
+    baseURL: 'https://home-repair-services-server-02.vercel.app',
     withCredentials: true
 });
 

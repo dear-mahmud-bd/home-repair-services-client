@@ -26,7 +26,7 @@ const UserAddedService = ({ service, services, setServices }) => {
             confirmButtonText: 'Yes, delete it!'
         }).then((result) => {
             if (result.isConfirmed) {
-                // axios.delete(`http://localhost:5000/services/${_id}`, { withCredentials: true })
+                // axios.delete(`https://home-repair-services-server-02.vercel.app/services/${_id}`, { withCredentials: true })
                 axiosSecure.delete(`/services/${_id}`)
                     .then(res => {
                         const data = res.data;

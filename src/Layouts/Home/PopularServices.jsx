@@ -9,7 +9,7 @@ const PopularServices = () => {
     const [loading, setLoading] = useState(true);
     const [popularServices, setPopularServices] = useState([]);
 
-    const url = 'http://localhost:5000/popular-services';
+    const url = 'https://home-repair-services-server-02.vercel.app/popular-services';
     useEffect(() => {
         axios.get(url)
             .then((res) => {

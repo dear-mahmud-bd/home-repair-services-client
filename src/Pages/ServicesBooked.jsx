@@ -14,7 +14,7 @@ const ServicesBooked = () => {
     const [loading, setLoading] = useState(true);
     const [bookings, setBookings] = useState([]);
 
-    // const url = `http://localhost:5000/holder-bookings?user_email=${user?.email}`;
+    // const url = `https://home-repair-services-server-02.vercel.app/holder-bookings?user_email=${user?.email}`;
     useEffect(() => {
         if(user?.email){
             // axios.get(url, { withCredentials: true })
