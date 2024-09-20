@@ -50,7 +50,9 @@ const ServiceManage = () => {
 
                     <tbody>
                         {
-                            services.map((service, index) => <UserAddedService key={index} service={service} />)
+                            services.map((service, index) => (
+                                <UserAddedService key={index} service={service} services={services} setServices={setServices} />
+                            ))
                         }
                     </tbody>
                 </table>

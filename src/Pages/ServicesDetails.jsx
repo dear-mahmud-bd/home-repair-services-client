@@ -10,8 +10,8 @@ const ServicesDetails = () => {
     const service = useLoaderData();
 
     const { user } = useContext(AuthContext);
-    console.log(user?.displayName, user?.email);
-    console.log(service);
+    // console.log(user?.displayName, user?.email);
+    // console.log(service);
 
     // const service = services.find(service => service.serviceId === _id);
 

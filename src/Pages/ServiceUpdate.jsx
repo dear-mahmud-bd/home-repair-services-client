@@ -1,56 +1,96 @@
 import { useContext, useEffect, useState } from "react";
-import { Helmet } from "react-helmet";
 import { AuthContext } from "../providers/AuthProvider";
+import { useLoaderData, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
+import { Helmet } from "react-helmet";
+import Loading from "../Layouts/Shared/Loading";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
-import { sweetToast } from "../utility/useToast";
+import { showToast } from "../utility/useToast";
 
-const ServiceAdd = () => {
+
+const ServiceUpdate = () => {
     const [loading, setLoading] = useState(false);
     const { user } = useContext(AuthContext);
-    const navigate = useNavigate();
-    const { register, handleSubmit, setValue, formState: { errors } } = useForm();
+    const service = useLoaderData();
 
+    const navigate = useNavigate();
+    // console.log(service);
+
+    const {
+        _id,
+        serviceProviderEmail,
+        serviceName,
+        serviceImage,
+        serviceLocation,
+        servicePrice,
+        serviceDescription,
+    } = service;
+
+    const { register, handleSubmit, setValue, formState: { errors } } = useForm();
     useEffect(() => {
         setValue('serviceProviderEmail', user?.email || '');
         setValue('serviceProviderName', user?.displayName || '');
         setValue('serviceProviderImage', user?.photoURL || '');
-    }, [user, setValue]);
+        setValue('serviceName', serviceName || '');
+        setValue('serviceImage', serviceImage || '');
+        setValue('serviceLocation', serviceLocation || '');
+        setValue('servicePrice', servicePrice || '');
+        setValue('serviceDescription', serviceDescription || '');
+    }, [user, serviceName, serviceImage, serviceLocation, servicePrice, serviceDescription, setValue]);
 
-    const onSubmit = (formData) => {
+
+    const handleUpdateService = (formData) => {
         const data = {
             ...formData,
             servicePrice: parseFloat(formData.servicePrice),
-            serviceTotalOrder: 0
         };
+        console.log(data);
         setLoading(true);
-        // console.log(data);
-        axios.post('http://localhost:5000/services', data)
-            .then(res => {
-                // console.log(res?.data);
-                setLoading(false);
-                if (res?.data.acknowledged) {
-                    sweetToast('Success!', 'Service Added Successfully', 'success');
+        axios.put(`http://localhost:5000/services/${_id}`, data)
+            .then((res) => {
+                const data = res.data;
+                if (data.modifiedCount > 0) {
+                    showToast('success', 'Service Update Successfully');
                     navigate('/services-manage');
                 } else {
-                    sweetToast('Error!', 'Something Wrong!!', 'error');
+                    showToast('error', 'Service was not Updated');
                 }
             })
-            .catch(() => {
-                setLoading(false);
-                sweetToast('Error!', 'Something Wrong!!', 'error');
-            })
+            .catch(() => { showToast('error', 'An error occurred while updating the Service.') })
+            .finally(() => { setLoading(false) });
     };
 
+    if (loading) return <Loading />;
+
+    if (user?.email !== serviceProviderEmail) {
+        return (
+            <div className="text-center flex flex-col items-center justify-center h-60 md:h-96">
+                <Helmet>
+                    <title>Unauthorised</title>
+                </Helmet>
+                <h1 className="text-4xl font-bold text-red-600">Unauthorised Access</h1>
+            </div>
+        );
+    }
+    if (!service) {
+        return (
+            <div className="text-center flex flex-col items-center justify-center h-60 md:h-96">
+                <Helmet>
+                    <title>Service Not Found</title>
+                </Helmet>
+                <h1 className="text-4xl font-bold text-red-600">Service Not Found</h1>
+                <p className="text-lg font-semibold text-gray-600 mt-2">Sorry, the service you are updating for does not exist.</p>
+            </div>
+        );
+    }
     return (
         <div className="max-w-5xl mx-auto my-5">
             <Helmet>
-                <title>Add Your Service</title>
+                <title>Update Your Service</title>
             </Helmet>
-            <h3 className="font-bold text-3xl text-center mb-4">Add Service as a provider...</h3>
+            <h3 className="font-bold text-3xl text-center mb-4">Update Your Service</h3>
 
-            <form className="space-y-5" onSubmit={handleSubmit(onSubmit)}>
+            <form className="space-y-5" onSubmit={handleSubmit(handleUpdateService)}>
                 <div className="grid grid-cols-3 sm:grid-cols-6 md:grid-cols-12 gap-3">
                     <div className="col-span-6 sm:col-span-3 md:col-span-4">
                         <label className="block text-sm font-semibold">Provider Name</label>
@@ -115,7 +155,7 @@ const ServiceAdd = () => {
                 </div>
                 <div className="flex justify-center">
                     <button type="submit" className="btn bg-custom-blue-5 hover:bg-custom-blue-3 text-white">
-                        {loading ? <span className="loading loading-spinner loading-xs"></span> : 'Add A Service'}
+                        {loading ? <span className="loading loading-spinner loading-xs"></span> : 'Update'}
                     </button>
                 </div>
             </form>
@@ -123,4 +163,4 @@ const ServiceAdd = () => {
     );
 };
 
-export default ServiceAdd;
+export default ServiceUpdate;

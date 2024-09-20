@@ -14,6 +14,7 @@ import ServiceAdd from "../Pages/ServiceAdd";
 import ServiceManage from "../Pages/ServiceManage";
 import ServicesBooked from "../Pages/ServicesBooked";
 import ServiceToDo from "../Pages/ServiceToDo";
+import ServiceUpdate from "../Pages/ServiceUpdate";
 
 
 const router = createBrowserRouter([
@@ -39,6 +40,13 @@ const router = createBrowserRouter([
             },
             { path: '/services-add', element: <PrivateRoute> <ServiceAdd /> </PrivateRoute> },
             { path: '/services-manage', element: <PrivateRoute> <ServiceManage /> </PrivateRoute> },
+            {
+                path: '/services-update/:_id', element: <PrivateRoute> <ServiceUpdate /> </PrivateRoute>,
+                loader: async ({ params }) => {
+                    const res = await axios.get(`http://localhost:5000/services/${params._id}`);
+                    return res.data;
+                },
+            },
             { path: '/services-booked', element: <PrivateRoute> <ServicesBooked /> </PrivateRoute> },
             { path: '/services-todo', element: <PrivateRoute> <ServiceToDo /> </PrivateRoute> },
         ]
