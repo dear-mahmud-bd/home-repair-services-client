@@ -7,9 +7,10 @@ import { useContext } from "react";
 import { AuthContext } from "../providers/AuthProvider";
 import { useForm } from "react-hook-form";
 import { DayPicker } from 'react-day-picker';
-import 'react-day-picker/dist/style.css';
 import axios from "axios";
 import { sweetToast } from "../utility/useToast";
+import 'react-day-picker/dist/style.css';
+
 
 const ServicesDetails = () => {
     const [loading, setLoading] = useState(false);
@@ -63,9 +64,13 @@ const ServicesDetails = () => {
     };
 
     const handlePurchase = (formData) => {
-        console.log(formData);
+        // console.log(formData);
+        const data = {
+            ...formData,
+            status: "pending",
+        };
         setLoading(true);
-        axios.post('http://localhost:5000/bookings', formData)
+        axios.post('http://localhost:5000/bookings', data)
             .then(res => {
                 // console.log(res?.data);
                 setLoading(false);
